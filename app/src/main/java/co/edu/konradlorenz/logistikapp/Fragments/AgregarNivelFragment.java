@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,29 +15,72 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import co.edu.konradlorenz.logistikapp.Entities.Estudiante;
+import co.edu.konradlorenz.logistikapp.Entities.Nivel;
 import co.edu.konradlorenz.logistikapp.R;
 
 
 public class AgregarNivelFragment extends Fragment {
 
+
+    private DatabaseReference baseDeDatos;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Agregar Nivel");
+        baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         StartAnimations();
-        Button registrar = (Button) getView().findViewById(R.id.botonRegistro);
+        final Button registrar = (Button) getView().findViewById(R.id.botonRegistro);
+
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("datos", obtenerCajasSeleccionadas());
+                EditText nombreNivel = (EditText) getView().findViewById(R.id.nombreNivel);
+                String nombreNivelString = nombreNivel.getText().toString();
+                EditText descNivel = (EditText) getView().findViewById(R.id.descripcionNivel);
+                String descNivelString = descNivel.getText().toString();
+                ArrayList<Integer> cajasSeleccionadas = obtenerCajasSeleccionadas();
+                if (!TextUtils.isEmpty(nombreNivelString) && !TextUtils.isEmpty(descNivelString)) {
+                    if (cajasSeleccionadas.isEmpty()) {
+                        Toast.makeText(getContext(), "Seleccione por lo menos una caja", Toast.LENGTH_LONG).show();
+                    } else {
+                        Nivel nivelNuevo = new Nivel(nombreNivelString, cajasSeleccionadas, descNivelString);
+                        baseDeDatos.child("Niveles").child(nombreNivelString).setValue(nivelNuevo);
+                        Toast.makeText(getContext(), "Nivel Registrado!", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "llenar los campos ", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+        final Button mostrar = (Button) getView().findViewById(R.id.mostrar);
+        mostrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HorizontalScrollView tablaCajas = (HorizontalScrollView) getView().findViewById(R.id.tablaCajas);
+                tablaCajas.setVisibility(View.VISIBLE);
+                registrar.setVisibility(View.VISIBLE);
+                mostrar.setVisibility(View.GONE);
             }
         });
     }
@@ -71,7 +115,7 @@ public class AgregarNivelFragment extends Fragment {
         splashTread.start();
     }
 
-    private String obtenerCajasSeleccionadas(){
+    private ArrayList<Integer> obtenerCajasSeleccionadas() {
         CheckBox caja1 = (CheckBox) getView().findViewById(R.id.checkBox1);
         CheckBox caja2 = (CheckBox) getView().findViewById(R.id.checkBox2);
         CheckBox caja3 = (CheckBox) getView().findViewById(R.id.checkBox3);
@@ -336,15 +380,12 @@ public class AgregarNivelFragment extends Fragment {
         cajas.add(caja129);
         cajas.add(caja130);
         cajas.add(caja131);
-        String seleccionados = "";
-        for (CheckBox checkBox: cajas) {
-            if(checkBox.isChecked()){
-                if(seleccionados != ""){
-                  seleccionados += ", ";
-                }
-                seleccionados += cajas.indexOf(checkBox);
+        ArrayList<Integer> cajasSeleccionadas = new ArrayList<>();
+        for (CheckBox checkBox : cajas) {
+            if (checkBox.isChecked()) {
+                cajasSeleccionadas.add(cajas.indexOf(checkBox));
             }
         }
-        return  seleccionados;
+        return cajasSeleccionadas;
     }
 }
