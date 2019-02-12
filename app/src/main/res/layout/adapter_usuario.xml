@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".Adapters.UsuarioVistaAdapter">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/carta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#000000"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:dividerPadding="10dp"
+                android:orientation="horizontal"
+                android:showDividers="beginning|end">
+
+                <ImageView
+                    android:id="@+id/imagenCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_margin="10dp"
+                    android:layout_weight="8"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/user" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/contenedorAdapter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/codigoAdapter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="20"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="Codigo"
+                            android:textStyle="bold"
+                            app:autoSizeMinTextSize="1dp"
+                            app:autoSizeTextType="uniform" />
+
+                        <TextView
+                            android:id="@+id/codigoCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="18"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:paddingBottom="5dp"
+                            app:autoSizeMinTextSize="1dp"
+                            app:autoSizeTextType="uniform" />
+
+                        <TextView
+                            android:id="@+id/nombreAdapter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="20"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="Nombre"
+                            android:textStyle="bold"
+                            app:autoSizeMinTextSize="1dp"
+                            app:autoSizeTextType="uniform" />
+
+                        <TextView
+                            android:id="@+id/nombreCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="18"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:paddingBottom="5dp"
+                            app:autoSizeMinTextSize="1dp"
+                            app:autoSizeTextType="uniform" />
+
+                        <TextView
+                            android:id="@+id/correoAdapter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="20"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:text="Correo"
+                            android:textStyle="bold"
+                            app:autoSizeMinTextSize="1dp"
+                            app:autoSizeTextType="uniform" />
+
+                        <TextView
+                            android:id="@+id/correoCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="18"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:paddingBottom="5dp"
+                            app:autoSizeMinTextSize="1dp"
+                            app:autoSizeTextType="uniform" />
+
+                        <view
+                            class="android.support.v4.widget.DrawerLayout"
+                            id="@+id/sep2"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/light_grey" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
