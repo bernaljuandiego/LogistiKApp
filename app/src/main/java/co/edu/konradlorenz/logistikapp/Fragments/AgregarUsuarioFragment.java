@@ -1,6 +1,8 @@
 package co.edu.konradlorenz.logistikapp.Fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.Button;
@@ -17,11 +19,18 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.annotation.Nullable;
 import android.view.animation.AnimationUtils;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ChildEventListener;
+
+import java.util.concurrent.Executor;
 
 import co.edu.konradlorenz.logistikapp.Entities.Estudiante;
 import co.edu.konradlorenz.logistikapp.R;
@@ -33,12 +42,15 @@ public class AgregarUsuarioFragment extends Fragment {
     private EditText nombreRegistro;
     private EditText codigoRegistro;
     private EditText correoRegistro;
+    private EditText contraseñaRegistro;
+    private EditText contraseña2Registro;
     private String nombreRegistroAux;
     private String correoRegistroAux;
     private EditText apellidoRegistro;
     private String apellidoRegistroAux;
     private DatabaseReference baseDeDatos;
     private TextWatcher lisenerCodigo;
+    private FirebaseAuth mAuth;
 
     public void registrarEstudiante() {
         try {
@@ -46,16 +58,41 @@ public class AgregarUsuarioFragment extends Fragment {
             String nombre = nombreRegistro.getText().toString();
             String apellido = apellidoRegistro.getText().toString();
             String correo = correoRegistro.getText().toString();
+            String contraseña1 = contraseñaRegistro.getText().toString();
+            String contraseña2 = contraseña2Registro.getText().toString();
             //registro Estudiante
-            if (!TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(apellido) && !TextUtils.isEmpty(correo)) {
-                Estudiante nuevoRegistro = new Estudiante(codigo, nombre, apellido, correo);
-                baseDeDatos.child("Estudiante").child(Integer.toString(codigo)).setValue(nuevoRegistro);
-                Toast.makeText(getContext(), "Registrado!", Toast.LENGTH_LONG).show();
-                vaciarCampos();
+            if (!TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(apellido) && !TextUtils.isEmpty(correo)  && !TextUtils.isEmpty(contraseña1)  && !TextUtils.isEmpty(contraseña2)) {
+                Log.e("contraseña", contraseña1 +" - "+contraseña2);
+                if (contraseña1.equals(contraseña2)){
+                    Estudiante nuevoRegistro = new Estudiante(codigo, nombre, apellido, correo);
+                    registrarUsuarioFirebase(correo, contraseña1);
+                    baseDeDatos.child("Estudiante").child(Integer.toString(codigo)).setValue(nuevoRegistro);
+                    Toast.makeText(getContext(), "Registrado!", Toast.LENGTH_LONG).show();
+                    vaciarCampos();
+                } else {
+                    contraseñaRegistro.setError("Las contraseñas deben coincidir");
+                    contraseñaRegistro.setText("");
+                    contraseña2Registro.setText("");
+                }
+
             }
         } catch (NumberFormatException ex) {
             Toast.makeText(getContext(), "llenar los campos ", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void registrarUsuarioFirebase(String email, String password){
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Snackbar.make(getView(), "Usuario Agregado", Snackbar.LENGTH_LONG).show();
+                        } else {
+                            Snackbar.make(getView(), "No se pudo completar la acción", Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+                });
     }
 
     private void lisenerCodigo() {
@@ -130,6 +167,8 @@ public class AgregarUsuarioFragment extends Fragment {
         apellidoRegistro = (EditText) getView().findViewById(R.id.apellidoRegistro);
         codigoRegistro = (EditText) getView().findViewById(R.id.codigoRegistro);
         correoRegistro = (EditText) getView().findViewById(R.id.correoRegistro);
+        contraseñaRegistro = (EditText) getView().findViewById(R.id.contraseñaRegistro);
+        contraseña2Registro = (EditText) getView().findViewById(R.id.contraseña2Registro);
         botonRegistro = (Button) getView().findViewById(R.id.botonRegistro);
     }
 
@@ -207,6 +246,7 @@ public class AgregarUsuarioFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Agregar Estudiante");
         baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos");
+        mAuth = FirebaseAuth.getInstance();
         obtenerComponentes();
         instanciasComponentes();
         lisenerCodigo();

@@ -4,10 +4,12 @@ package co.edu.konradlorenz.logistikapp.Fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +19,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
-import android.widget.ScrollView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,86 +42,37 @@ public class AgregarNivelFragment extends Fragment {
 
 
     private DatabaseReference baseDeDatos;
+    private ArrayList<CheckBox> todosCheckBox;
+    private Button registrar;
+    private Button mostrar;
+    private Button eliminar;
+    private HorizontalScrollView tablaCajas;
+    private EditText descNivel;
+    private EditText nombreNivel;
+    private TextWatcher nombreNivelListener;
+    private TextView titulo;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Agregar Nivel");
         baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos");
+        obtenerComponentes();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        StartAnimations();
-        final Button registrar = (Button) getView().findViewById(R.id.botonRegistro);
-
-        registrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText nombreNivel = (EditText) getView().findViewById(R.id.nombreNivel);
-                String nombreNivelString = nombreNivel.getText().toString();
-                EditText descNivel = (EditText) getView().findViewById(R.id.descripcionNivel);
-                String descNivelString = descNivel.getText().toString();
-                ArrayList<Integer> cajasSeleccionadas = obtenerCajasSeleccionadas();
-                if (!TextUtils.isEmpty(nombreNivelString) && !TextUtils.isEmpty(descNivelString)) {
-                    if (cajasSeleccionadas.isEmpty()) {
-                        Toast.makeText(getContext(), "Seleccione por lo menos una caja", Toast.LENGTH_LONG).show();
-                    } else {
-                        Nivel nivelNuevo = new Nivel(nombreNivelString, cajasSeleccionadas, descNivelString);
-                        baseDeDatos.child("Niveles").child(nombreNivelString).setValue(nivelNuevo);
-                        Toast.makeText(getContext(), "Nivel Registrado!", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "llenar los campos ", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-
-        final Button mostrar = (Button) getView().findViewById(R.id.mostrar);
-        mostrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HorizontalScrollView tablaCajas = (HorizontalScrollView) getView().findViewById(R.id.tablaCajas);
-                tablaCajas.setVisibility(View.VISIBLE);
-                registrar.setVisibility(View.VISIBLE);
-                mostrar.setVisibility(View.GONE);
-            }
-        });
+    private void obtenerComponentes() {
+        titulo = (TextView) getView().findViewById(R.id.titulo);
+        nombreNivel = (EditText) getView().findViewById(R.id.nombreNivel);
+        descNivel = (EditText) getView().findViewById(R.id.descripcionNivel);
+        tablaCajas = (HorizontalScrollView) getView().findViewById(R.id.tablaCajas);
+        registrar = (Button) getView().findViewById(R.id.botonRegistro);
+        mostrar = (Button) getView().findViewById(R.id.mostrar);
+        eliminar = (Button) getView().findViewById(R.id.eliminar);
+        todosCheckBox = new ArrayList<>();
+        llenarArregloCheckBox();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_agregar_nivel, container, false);
-    }
-
-    private void StartAnimations() {
-        Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate);
-        anim.reset();
-        CardView l = (CardView) getView().findViewById(R.id.card);
-        l.clearAnimation();
-        l.startAnimation(anim);
-        Thread splashTread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    int waited = 0;
-                    // SplashActivity screen pause time
-                    while (waited < 1000) {
-                        sleep(100);
-                        waited += 100;
-                    }
-                } catch (InterruptedException e) {
-                } finally {
-                }
-            }
-        };
-        splashTread.start();
-    }
-
-    private ArrayList<Integer> obtenerCajasSeleccionadas() {
+    private void llenarArregloCheckBox() {
         CheckBox caja1 = (CheckBox) getView().findViewById(R.id.checkBox1);
         CheckBox caja2 = (CheckBox) getView().findViewById(R.id.checkBox2);
         CheckBox caja3 = (CheckBox) getView().findViewById(R.id.checkBox3);
@@ -247,145 +204,330 @@ public class AgregarNivelFragment extends Fragment {
         CheckBox caja129 = (CheckBox) getView().findViewById(R.id.checkBox129);
         CheckBox caja130 = (CheckBox) getView().findViewById(R.id.checkBox130);
         CheckBox caja131 = (CheckBox) getView().findViewById(R.id.checkBox131);
+        todosCheckBox.add(caja1);
+        todosCheckBox.add(caja2);
+        todosCheckBox.add(caja3);
+        todosCheckBox.add(caja4);
+        todosCheckBox.add(caja5);
+        todosCheckBox.add(caja6);
+        todosCheckBox.add(caja7);
+        todosCheckBox.add(caja8);
+        todosCheckBox.add(caja9);
+        todosCheckBox.add(caja10);
+        todosCheckBox.add(caja11);
+        todosCheckBox.add(caja12);
+        todosCheckBox.add(caja13);
+        todosCheckBox.add(caja14);
+        todosCheckBox.add(caja15);
+        todosCheckBox.add(caja16);
+        todosCheckBox.add(caja17);
+        todosCheckBox.add(caja18);
+        todosCheckBox.add(caja19);
+        todosCheckBox.add(caja20);
+        todosCheckBox.add(caja21);
+        todosCheckBox.add(caja22);
+        todosCheckBox.add(caja23);
+        todosCheckBox.add(caja24);
+        todosCheckBox.add(caja25);
+        todosCheckBox.add(caja26);
+        todosCheckBox.add(caja27);
+        todosCheckBox.add(caja28);
+        todosCheckBox.add(caja29);
+        todosCheckBox.add(caja30);
+        todosCheckBox.add(caja31);
+        todosCheckBox.add(caja32);
+        todosCheckBox.add(caja33);
+        todosCheckBox.add(caja34);
+        todosCheckBox.add(caja35);
+        todosCheckBox.add(caja36);
+        todosCheckBox.add(caja37);
+        todosCheckBox.add(caja38);
+        todosCheckBox.add(caja39);
+        todosCheckBox.add(caja40);
+        todosCheckBox.add(caja41);
+        todosCheckBox.add(caja42);
+        todosCheckBox.add(caja43);
+        todosCheckBox.add(caja44);
+        todosCheckBox.add(caja45);
+        todosCheckBox.add(caja46);
+        todosCheckBox.add(caja47);
+        todosCheckBox.add(caja48);
+        todosCheckBox.add(caja49);
+        todosCheckBox.add(caja50);
+        todosCheckBox.add(caja51);
+        todosCheckBox.add(caja52);
+        todosCheckBox.add(caja53);
+        todosCheckBox.add(caja54);
+        todosCheckBox.add(caja55);
+        todosCheckBox.add(caja56);
+        todosCheckBox.add(caja57);
+        todosCheckBox.add(caja58);
+        todosCheckBox.add(caja59);
+        todosCheckBox.add(caja60);
+        todosCheckBox.add(caja61);
+        todosCheckBox.add(caja62);
+        todosCheckBox.add(caja63);
+        todosCheckBox.add(caja64);
+        todosCheckBox.add(caja65);
+        todosCheckBox.add(caja66);
+        todosCheckBox.add(caja67);
+        todosCheckBox.add(caja68);
+        todosCheckBox.add(caja69);
+        todosCheckBox.add(caja70);
+        todosCheckBox.add(caja71);
+        todosCheckBox.add(caja72);
+        todosCheckBox.add(caja73);
+        todosCheckBox.add(caja74);
+        todosCheckBox.add(caja75);
+        todosCheckBox.add(caja76);
+        todosCheckBox.add(caja77);
+        todosCheckBox.add(caja78);
+        todosCheckBox.add(caja79);
+        todosCheckBox.add(caja80);
+        todosCheckBox.add(caja81);
+        todosCheckBox.add(caja82);
+        todosCheckBox.add(caja83);
+        todosCheckBox.add(caja84);
+        todosCheckBox.add(caja85);
+        todosCheckBox.add(caja86);
+        todosCheckBox.add(caja87);
+        todosCheckBox.add(caja88);
+        todosCheckBox.add(caja89);
+        todosCheckBox.add(caja90);
+        todosCheckBox.add(caja91);
+        todosCheckBox.add(caja92);
+        todosCheckBox.add(caja93);
+        todosCheckBox.add(caja94);
+        todosCheckBox.add(caja95);
+        todosCheckBox.add(caja96);
+        todosCheckBox.add(caja97);
+        todosCheckBox.add(caja98);
+        todosCheckBox.add(caja99);
+        todosCheckBox.add(caja100);
+        todosCheckBox.add(caja101);
+        todosCheckBox.add(caja102);
+        todosCheckBox.add(caja103);
+        todosCheckBox.add(caja104);
+        todosCheckBox.add(caja105);
+        todosCheckBox.add(caja106);
+        todosCheckBox.add(caja107);
+        todosCheckBox.add(caja108);
+        todosCheckBox.add(caja109);
+        todosCheckBox.add(caja110);
+        todosCheckBox.add(caja111);
+        todosCheckBox.add(caja112);
+        todosCheckBox.add(caja113);
+        todosCheckBox.add(caja114);
+        todosCheckBox.add(caja115);
+        todosCheckBox.add(caja116);
+        todosCheckBox.add(caja117);
+        todosCheckBox.add(caja118);
+        todosCheckBox.add(caja119);
+        todosCheckBox.add(caja120);
+        todosCheckBox.add(caja121);
+        todosCheckBox.add(caja122);
+        todosCheckBox.add(caja123);
+        todosCheckBox.add(caja124);
+        todosCheckBox.add(caja125);
+        todosCheckBox.add(caja126);
+        todosCheckBox.add(caja127);
+        todosCheckBox.add(caja128);
+        todosCheckBox.add(caja129);
+        todosCheckBox.add(caja130);
+        todosCheckBox.add(caja131);
+    }
 
-        ArrayList<CheckBox> cajas = new ArrayList<>();
-        cajas.add(caja1);
-        cajas.add(caja2);
-        cajas.add(caja3);
-        cajas.add(caja4);
-        cajas.add(caja5);
-        cajas.add(caja6);
-        cajas.add(caja7);
-        cajas.add(caja8);
-        cajas.add(caja9);
-        cajas.add(caja10);
-        cajas.add(caja11);
-        cajas.add(caja12);
-        cajas.add(caja13);
-        cajas.add(caja14);
-        cajas.add(caja15);
-        cajas.add(caja16);
-        cajas.add(caja17);
-        cajas.add(caja18);
-        cajas.add(caja19);
-        cajas.add(caja20);
-        cajas.add(caja21);
-        cajas.add(caja22);
-        cajas.add(caja23);
-        cajas.add(caja24);
-        cajas.add(caja25);
-        cajas.add(caja26);
-        cajas.add(caja27);
-        cajas.add(caja28);
-        cajas.add(caja29);
-        cajas.add(caja30);
-        cajas.add(caja31);
-        cajas.add(caja32);
-        cajas.add(caja33);
-        cajas.add(caja34);
-        cajas.add(caja35);
-        cajas.add(caja36);
-        cajas.add(caja37);
-        cajas.add(caja38);
-        cajas.add(caja39);
-        cajas.add(caja40);
-        cajas.add(caja41);
-        cajas.add(caja42);
-        cajas.add(caja43);
-        cajas.add(caja44);
-        cajas.add(caja45);
-        cajas.add(caja46);
-        cajas.add(caja47);
-        cajas.add(caja48);
-        cajas.add(caja49);
-        cajas.add(caja50);
-        cajas.add(caja51);
-        cajas.add(caja52);
-        cajas.add(caja53);
-        cajas.add(caja54);
-        cajas.add(caja55);
-        cajas.add(caja56);
-        cajas.add(caja57);
-        cajas.add(caja58);
-        cajas.add(caja59);
-        cajas.add(caja60);
-        cajas.add(caja61);
-        cajas.add(caja62);
-        cajas.add(caja63);
-        cajas.add(caja64);
-        cajas.add(caja65);
-        cajas.add(caja66);
-        cajas.add(caja67);
-        cajas.add(caja68);
-        cajas.add(caja69);
-        cajas.add(caja70);
-        cajas.add(caja71);
-        cajas.add(caja72);
-        cajas.add(caja73);
-        cajas.add(caja74);
-        cajas.add(caja75);
-        cajas.add(caja76);
-        cajas.add(caja77);
-        cajas.add(caja78);
-        cajas.add(caja79);
-        cajas.add(caja80);
-        cajas.add(caja81);
-        cajas.add(caja82);
-        cajas.add(caja83);
-        cajas.add(caja84);
-        cajas.add(caja85);
-        cajas.add(caja86);
-        cajas.add(caja87);
-        cajas.add(caja88);
-        cajas.add(caja89);
-        cajas.add(caja90);
-        cajas.add(caja91);
-        cajas.add(caja92);
-        cajas.add(caja93);
-        cajas.add(caja94);
-        cajas.add(caja95);
-        cajas.add(caja96);
-        cajas.add(caja97);
-        cajas.add(caja98);
-        cajas.add(caja99);
-        cajas.add(caja100);
-        cajas.add(caja101);
-        cajas.add(caja102);
-        cajas.add(caja103);
-        cajas.add(caja104);
-        cajas.add(caja105);
-        cajas.add(caja106);
-        cajas.add(caja107);
-        cajas.add(caja108);
-        cajas.add(caja109);
-        cajas.add(caja110);
-        cajas.add(caja111);
-        cajas.add(caja112);
-        cajas.add(caja113);
-        cajas.add(caja114);
-        cajas.add(caja115);
-        cajas.add(caja116);
-        cajas.add(caja117);
-        cajas.add(caja118);
-        cajas.add(caja119);
-        cajas.add(caja120);
-        cajas.add(caja121);
-        cajas.add(caja122);
-        cajas.add(caja123);
-        cajas.add(caja124);
-        cajas.add(caja125);
-        cajas.add(caja126);
-        cajas.add(caja127);
-        cajas.add(caja128);
-        cajas.add(caja129);
-        cajas.add(caja130);
-        cajas.add(caja131);
-        ArrayList<Integer> cajasSeleccionadas = new ArrayList<>();
-        for (CheckBox checkBox : cajas) {
+    private void agregarLiseners() {
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                baseDeDatos.child("Niveles").child(nombreNivel.getText().toString()).removeValue().addOnCompleteListener(
+                        new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                nombreNivel.setText("");
+                                Snackbar.make(getView(), "Nivel Eliminado satisfactoriamente!", Snackbar.LENGTH_LONG).show();
+                            }
+
+                        }
+                ).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Snackbar.make(getView(), "No se ha podido eliminar el nivel!", Snackbar.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
+
+        registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nombreNivelString = nombreNivel.getText().toString();
+                String descNivelString = descNivel.getText().toString();
+                ArrayList<Integer> cajasSeleccionadas = obtenerCajasSeleccionadas();
+                if (!TextUtils.isEmpty(nombreNivelString) && !TextUtils.isEmpty(descNivelString)) {
+                    if (cajasSeleccionadas.isEmpty()) {
+                        Snackbar.make(getView(), "Seleccione por lo menos una caja!", Snackbar.LENGTH_LONG).show();
+                    } else {
+                        Nivel nivelNuevo = new Nivel(nombreNivelString, cajasSeleccionadas, descNivelString);
+                        baseDeDatos.child("Niveles").child(nombreNivelString).setValue(nivelNuevo).addOnCompleteListener(
+                                new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        nombreNivel.setText("");
+                                        Snackbar.make(getView(), "Nivel Agregado satisfactoriamente!", Snackbar.LENGTH_LONG).show();
+                                    }
+
+                                }
+                        ).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Snackbar.make(getView(), "No se ha podido completar la acción!", Snackbar.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                } else {
+                    descNivel.setError("Campo Requerido");
+                }
+
+            }
+        });
+
+        mostrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tablaCajas.setVisibility(View.VISIBLE);
+                registrar.setVisibility(View.VISIBLE);
+                mostrar.setVisibility(View.GONE);
+            }
+        });
+
+        nombreNivelListener = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                vaciarCampos();
+                String nivel = nombreNivel.getText().toString();
+                baseDeDatos.child("Niveles").orderByChild("nombre")
+                        .equalTo(nivel)
+                        .limitToFirst(1)
+                        .addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                final Nivel nivel = dataSnapshot.getValue(Nivel.class);
+                                actualizarCampos(nivel);
+                            }
+
+                            @Override
+                            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+            }
+        };
+
+        nombreNivel.addTextChangedListener(nombreNivelListener);
+    }
+
+    private void actualizarCampos(Nivel nivel) {
+        titulo.setText("Edición de nivel");
+        mostrar.setText("Editar Cajas");
+        descNivel.setText(nivel.getDescripcion());
+        for (CheckBox checkBox : todosCheckBox) {
+            checkBox.setChecked(false);
+        }
+        for (Integer integer : nivel.getCajas()) {
+            todosCheckBox.get(integer).setChecked(true);
+        }
+        registrar.setVisibility(View.VISIBLE);
+        mostrar.setVisibility(View.VISIBLE);
+        eliminar.setVisibility(View.VISIBLE);
+    }
+
+    private void vaciarCampos() {
+        titulo.setText("Registro de niveles");
+        mostrar.setText("Seleccionar Cajas");
+        descNivel.setText("");
+        for (CheckBox checkBox : todosCheckBox) {
+            checkBox.setChecked(false);
+        }
+        tablaCajas.setVisibility(View.GONE);
+        registrar.setVisibility(View.GONE);
+        eliminar.setVisibility(View.GONE);
+        mostrar.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        StartAnimations();
+        agregarLiseners();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_agregar_nivel, container, false);
+    }
+
+    private void StartAnimations() {
+        Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate);
+        anim.reset();
+        CardView l = (CardView) getView().findViewById(R.id.card);
+        l.clearAnimation();
+        l.startAnimation(anim);
+        Thread splashTread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    int waited = 0;
+                    // SplashActivity screen pause time
+                    while (waited < 1000) {
+                        sleep(100);
+                        waited += 100;
+                    }
+                } catch (InterruptedException e) {
+                } finally {
+                }
+            }
+        };
+        splashTread.start();
+    }
+
+    private ArrayList<Integer> obtenerCajasSeleccionadas() {
+        ArrayList<Integer> cajas = new ArrayList<>();
+        for (CheckBox checkBox : todosCheckBox) {
             if (checkBox.isChecked()) {
-                cajasSeleccionadas.add(cajas.indexOf(checkBox));
+                cajas.add(todosCheckBox.indexOf(checkBox));
             }
         }
-        return cajasSeleccionadas;
+        return cajas;
     }
 }
