@@ -1,14 +1,41 @@
 <resources>
     <string name="app_name">LogistiK App</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="action_sign_in">Iniciar sesión ó Registrarse</string>
+    <string name="action_sign_in_short">Iniciar Sesión</string>
     <string name="salir">Salir</string>
     <string name="sesion">Sesión</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_invalid_email">Este correo es invalido.</string>
+    <string name="error_invalid_password">La contraseña es demasiado corta</string>
+    <string name="error_incorrect_password">La contraseña es incorrecta.</string>
+    <string name="error_field_required">Campo Requerido</string>
+    <string name="facebook_app_id">606154233141218</string>
+    <string name="permission_rationale">"Permiso de contactos requerido para autocompletar email."</string>
+    <string name="fb_login_protocol_scheme">fb606154233141218</string>
+    <string name="CONSUMER_KEY">EnnbZGKoE7ctDN8JikLv1eKzY</string>
+    <string name="CONSUMER_SECRET">w75UIF1QoftSiUeZ6cT03shrmJ6brNWORV9w9vjg6R5uxjfS7o</string>
+    <string name="exchange">Aplicación</string>
+    <string name="colombian">de</string>
+    <string name="don_t_have_an_account">No tienes cuenta?</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="or">ó</string>
+    <string name="get_help_signing_in">Olvidaste tu contraseña?</string>
+    <string name="network">LogistiK</string>
+    <string name="sign_up">Registrate.</string>
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="username">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="nav_header_desc">LogistiK</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="cantAccess">Necesitas ayuda?</string>
+    <string name="apellido">Apellido</string>
+    <string name="nombre">Nombre</string>
+    <string name="seleccionarFoto">Seleccionar Foto</string>
+    <string name="registroDe">Registro De</string>
+    <string name="usuario">Usuario</string>
 </resources>

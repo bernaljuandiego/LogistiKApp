@@ -1,7 +1,7 @@
 package co.edu.konradlorenz.logistikapp.Fragments;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import com.google.android.material.snackbar.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -13,11 +13,11 @@ import android.widget.TextView;
 import android.widget.EditText;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.animation.Animation;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.annotation.Nullable;
 import android.view.animation.AnimationUtils;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,8 +29,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ChildEventListener;
-
-import java.util.concurrent.Executor;
 
 import co.edu.konradlorenz.logistikapp.Entities.Estudiante;
 import co.edu.konradlorenz.logistikapp.R;
