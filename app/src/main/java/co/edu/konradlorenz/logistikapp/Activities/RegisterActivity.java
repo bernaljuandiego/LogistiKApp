@@ -24,10 +24,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -45,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ConstraintLayout register_layout;
 
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,12 @@ public class RegisterActivity extends AppCompatActivity {
         buttonsController();
 
         firebaseAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     public void addUser(){
@@ -83,12 +93,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        Snackbar.make(register_layout, "User Created", Snackbar.LENGTH_SHORT).show();
-                                    }
+                                        Snackbar.make(register_layout, "User Created", Snackbar.LENGTH_SHORT).show();}
                                 }
                             });
-
-
                 }else{
                     Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }

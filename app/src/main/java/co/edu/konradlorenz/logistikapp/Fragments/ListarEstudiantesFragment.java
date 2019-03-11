@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import co.edu.konradlorenz.logistikapp.Adapters.UsuarioVistaAdapter;
-import co.edu.konradlorenz.logistikapp.Entities.Estudiante;
+import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.R;
 
 
@@ -32,9 +32,8 @@ public class ListarEstudiantesFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DatabaseReference baseDeDatos;
-    private ArrayList<Estudiante> estudiantes;
+    private ArrayList<User> estudiantes;
     private ValueEventListener lisener;
-
 
     @Nullable
     @Override
@@ -60,7 +59,7 @@ public class ListarEstudiantesFragment extends Fragment {
                 estudiantes.clear();
 
                 for (DataSnapshot asistenteSnapshot: snapshot.getChildren()) {
-                    Estudiante estudiante = asistenteSnapshot.getValue(Estudiante.class);
+                    User estudiante = asistenteSnapshot.getValue(User.class);
                     estudiantes.add(estudiante);
                 }
 

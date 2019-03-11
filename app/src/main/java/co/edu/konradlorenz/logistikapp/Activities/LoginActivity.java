@@ -44,6 +44,7 @@ import android.content.pm.PackageManager;
 import android.view.View.OnClickListener;
 import android.provider.ContactsContract;
 import androidx.annotation.NonNull;
+import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.Fragments.PasswordRecoveryFragment;
 import co.edu.konradlorenz.logistikapp.R;
 
@@ -51,6 +52,9 @@ import android.widget.AutoCompleteTextView;
 import android.view.inputmethod.EditorInfo;
 
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.Callback;
@@ -98,6 +102,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private GoogleSignInClient mGoogleSignInClient;
     private static final int REQUEST_READ_CONTACTS = 0;
     private TextView sign_up_button;
+    private DatabaseReference mDatabase;
 
     //metodos de autocompletado de textedit de correo electronico y pedida de permisos de acceso a contactos--------------------------------------------------------------------------------------------
     private interface ProfileQuery {
@@ -153,6 +158,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public void onStart() {
         super.onStart();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         if (mAuth.getCurrentUser() != null) {
             logInSucceed();
         } else {
@@ -368,22 +374,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     protected boolean isPasswordValid(String password) {
-
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{6,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches();
+        return password.length() >= 6;
     }
 
     protected boolean isEmailValid(String email) {
-        if (email.contains("@") &&  email.contains(".")){
-            return true;
-        }else {
-            return false;
-        }
+        return email.contains("@") && email.contains(".");
 
     }
 
@@ -466,7 +461,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         credentialFirebaseSingIn(credential);
     }
 
-    private void credentialFirebaseSingIn(AuthCredential credential) {
+    private void credentialFirebaseSingIn(final AuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -487,7 +482,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void logInSucceed() {
-        FirebaseUser user = mAuth.getCurrentUser();
         Intent i = new Intent(LoginActivity.this, PrincipalActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         showProgress(false);

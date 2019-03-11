@@ -8,23 +8,23 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
 
-import co.edu.konradlorenz.logistikapp.Entities.Estudiante;
+import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.R;
 
 public class UsuarioVistaAdapter extends RecyclerView.Adapter<UsuarioVistaAdapter.UsuarioViewHolder> {
 
-    private ArrayList<Estudiante> items;
+    private ArrayList<User> items;
 
-    public UsuarioVistaAdapter(ArrayList<Estudiante> items) {
+    public UsuarioVistaAdapter(ArrayList<User> items) {
         this.items = items;
     }
 
 
-    public ArrayList<Estudiante> getItems() {
+    public ArrayList<User> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<Estudiante> items) {
+    public void setItems(ArrayList<User> items) {
         this.items = items;
     }
 
@@ -41,8 +41,7 @@ public class UsuarioVistaAdapter extends RecyclerView.Adapter<UsuarioVistaAdapte
 
     @Override
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
-        holder.nombre.setText(items.get(position).getNombre()+" "+items.get(position).getApellido());
-        holder.codigo.setText(Integer.toString(items.get(position).getCodigo()));
+        holder.nombre.setText(items.get(position).getNombre());
         holder.correo.setText(items.get(position).getCorreo());
     }
 
@@ -55,13 +54,11 @@ public class UsuarioVistaAdapter extends RecyclerView.Adapter<UsuarioVistaAdapte
 
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
         TextView nombre;
-        TextView codigo;
         TextView correo;
 
         UsuarioViewHolder(View itemView) {
             super(itemView);
             nombre = (TextView) itemView.findViewById(R.id.nombreCard);
-            codigo = (TextView) itemView.findViewById(R.id.codigoCard);
             correo = (TextView) itemView.findViewById(R.id.correoCard);
         }
     }

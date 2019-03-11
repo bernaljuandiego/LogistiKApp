@@ -10,7 +10,8 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/carta"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,103 +32,82 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
-                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="8"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
-                    android:scaleType="fitCenter"
+                    android:scaleType="fitStart"
                     android:src="@drawable/user" />
 
                 <LinearLayout
+                    android:id="@+id/contenedorAdapter"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="2"
                     android:orientation="vertical">
 
-                    <LinearLayout
-                        android:id="@+id/contenedorAdapter"
+                    <TextView
+                        android:id="@+id/nombreAdapter"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
+                        android:layout_weight="22"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="Nombre"
+                        android:textColor="@color/tw__composer_black"
+                        android:textStyle="bold"
+                        app:autoSizeTextType="uniform" />
 
-                        <TextView
-                            android:id="@+id/codigoAdapter"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="20"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="Codigo"
-                            android:textStyle="bold"
-                            app:autoSizeMinTextSize="1dp"
-                            app:autoSizeTextType="uniform" />
+                    <TextView
+                        android:id="@+id/nombreCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="18"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/browser_actions_title_color"
+                        app:autoSizeMinTextSize="1dp"
+                        app:autoSizeTextType="uniform"
+                        tools:text="@tools:sample/cities" />
 
-                        <TextView
-                            android:id="@+id/codigoCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="18"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingBottom="5dp"
-                            app:autoSizeMinTextSize="1dp"
-                            app:autoSizeTextType="uniform" />
+                    <TextView
+                        android:id="@+id/correoAdapter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="22"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="Correo"
+                        android:textColor="@color/tw__composer_black"
+                        android:textStyle="bold"
+                        app:autoSizeMinTextSize="1dp"
+                        app:autoSizeTextType="uniform" />
 
-                        <TextView
-                            android:id="@+id/nombreAdapter"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="20"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="Nombre"
-                            android:textStyle="bold"
-                            app:autoSizeMinTextSize="1dp"
-                            app:autoSizeTextType="uniform" />
+                    <TextView
+                        android:id="@+id/correoCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="18"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        android:textColor="@color/browser_actions_title_color"
+                        app:autoSizeMinTextSize="1dp"
+                        app:autoSizeTextType="uniform" />
 
-                        <TextView
-                            android:id="@+id/nombreCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="18"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingBottom="5dp"
-                            app:autoSizeMinTextSize="1dp"
-                            app:autoSizeTextType="uniform" />
+                    <view
+                        class="androidx.drawerlayout.widget.DrawerLayout"
+                        id="@+id/sep2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider" />
 
-                        <TextView
-                            android:id="@+id/correoAdapter"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="20"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:text="Correo"
-                            android:textStyle="bold"
-                            app:autoSizeMinTextSize="1dp"
-                            app:autoSizeTextType="uniform" />
-
-                        <TextView
-                            android:id="@+id/correoCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="18"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:paddingBottom="5dp"
-                            app:autoSizeMinTextSize="1dp"
-                            app:autoSizeTextType="uniform" />
-
-                        <view
-                            class="androidx.drawerlayout.widget.DrawerLayout"
-                            id="@+id/sep2"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/light_grey" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

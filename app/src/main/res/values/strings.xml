@@ -38,4 +38,8 @@
     <string name="seleccionarFoto">Seleccionar Foto</string>
     <string name="registroDe">Registro De</string>
     <string name="usuario">Usuario</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="niveles">Niveles</string>
 </resources>

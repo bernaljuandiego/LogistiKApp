@@ -52,6 +52,7 @@
                         android:layout_weight="1"
                         android:gravity="bottom"
                         android:text="@string/exchange"
+                        android:textColor="@color/secondary_text"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -62,6 +63,7 @@
                         android:layout_weight="1"
                         android:gravity="fill_vertical"
                         android:text="@string/colombian"
+                        android:textColor="@color/secondary_text"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -72,6 +74,7 @@
                         android:layout_weight="1"
                         android:gravity="top"
                         android:text="@string/network"
+                        android:textColor="@color/secondary_text"
                         android:textSize="24sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -82,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
+                android:layout_marginEnd="0dp">
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
@@ -90,14 +93,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/white_transparent_2_bkg"
                     android:hint="@string/username"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="10dp"
-                    android:shadowColor="@color/common_google_signin_btn_text_dark_pressed"
                     android:singleLine="true"
-                    android:textColor="@color/common_google_signin_btn_text_dark_default"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -105,8 +105,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp">
+                android:layout_marginStart="15dp">
 
                 <EditText
                     android:id="@+id/password"
@@ -114,23 +113,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/white_transparent_2_bkg"
                     android:hint="@string/password"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:padding="10dp"
-                    android:shadowColor="@color/common_google_signin_btn_text_dark_pressed"
                     android:singleLine="true"
-                    android:textColor="@color/common_google_signin_btn_text_dark_default"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -138,9 +133,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/white_border_transparent_bkg"
                 android:text="@string/sign_in"
-                android:textColor="#fff"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -157,8 +150,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/cantAccess"
-                    android:textColor="#80ffffff"
-                    android:textSize="12dp" />
+                    android:textColor="@color/secondary_text"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/forgot_password_text"
@@ -166,8 +159,9 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:text="@string/get_help_signing_in"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp" />
+                    android:textColor="@color/icons"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -184,7 +178,7 @@
                     android:layout_height="2dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
-                    android:background="#4dffffff"
+                    android:background="@color/icons"
                     android:orientation="horizontal"></LinearLayout>
 
                 <TextView
@@ -193,14 +187,14 @@
                     android:layout_weight="3"
                     android:gravity="center"
                     android:text="@string/or"
-                    android:textColor="#fff" />
+                    android:textColor="@color/icons" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="2"
-                    android:background="#4dffffff"
+                    android:background="@color/icons"
                     android:orientation="horizontal"></LinearLayout>
             </LinearLayout>
 
@@ -293,7 +287,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/don_t_have_an_account"
-                    android:textColor="#80ffffff"
+                    android:textColor="@color/secondary_text"
                     android:textSize="12dp" />
 
                 <TextView
@@ -302,8 +296,9 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:text="@string/sign_up"
-                    android:textColor="#ffffff"
-                    android:textSize="12dp" />
+                    android:textColor="@color/icons"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </LinearLayout>
@@ -327,7 +322,6 @@
             android:paddingLeft="100dp"
             android:paddingTop="100dp"
             android:paddingRight="100dp"
-            app:indicatorColor="@color/colorAccent"
             app:indicatorName="LineScaleIndicator"
             tools:layout_editor_absoluteX="152dp"
             tools:layout_editor_absoluteY="699dp" />
