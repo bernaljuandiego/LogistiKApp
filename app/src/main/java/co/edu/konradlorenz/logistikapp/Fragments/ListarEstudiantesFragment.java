@@ -45,7 +45,7 @@ public class ListarEstudiantesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Listar Estudiantes");
-        baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos");
+        baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos").child("Users");
         estudiantes = new ArrayList<>();
     }
 
@@ -71,7 +71,7 @@ public class ListarEstudiantesFragment extends Fragment {
                 items.setLayoutManager(mLayoutManager);
 
                 // specify an adapter (see also next example)
-                mAdapter = new UsuarioVistaAdapter(estudiantes);
+                mAdapter = new UsuarioVistaAdapter(estudiantes,getContext());
                 items.setAdapter(mAdapter);
             }
             @Override
@@ -79,13 +79,13 @@ public class ListarEstudiantesFragment extends Fragment {
                 Log.e("The read failed: " ,firebaseError.getMessage());
             }
         };
-        baseDeDatos.child("Estudiante").addValueEventListener(lisener);
+        baseDeDatos.addValueEventListener(lisener);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        baseDeDatos.child("Estudiante").removeEventListener(lisener);
+        baseDeDatos.removeEventListener(lisener);
     }
 
 

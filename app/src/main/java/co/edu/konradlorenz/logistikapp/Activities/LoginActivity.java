@@ -482,6 +482,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private void logInSucceed() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        User newUser = new User();
+        for (UserInfo profile : user.getProviderData()) {
+            newUser = new User(user.getUid(),profile.getDisplayName(),profile.getEmail(),profile.getPhotoUrl().toString());
+        }
+        mDatabase.child("BaseDatos").child("Users").child(user.getUid()).setValue(newUser);
         Intent i = new Intent(LoginActivity.this, PrincipalActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         showProgress(false);

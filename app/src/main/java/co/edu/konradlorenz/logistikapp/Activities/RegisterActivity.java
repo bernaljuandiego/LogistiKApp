@@ -1,21 +1,20 @@
 package co.edu.konradlorenz.logistikapp.Activities;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -24,13 +23,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.IOException;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.R;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -46,9 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Uri selectedImage;
     private ProgressBar registration_progressbar;
     private ConstraintLayout register_layout;
-
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,46 +55,80 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-    }
-
     public void addUser(){
-
         final String userCompleteName = usernameTextInput.getText().toString().trim() + " " + lastnameTextInput.getText().toString().trim();
+        emailTextInput.setError(null);
+        passwordTextInput.setError(null);
+
+
         String emailAdress = emailTextInput.getText().toString().trim();
         String password = passwordTextInput.getText().toString().trim();
 
+        boolean cancel = false;
+        View focusView = null;
 
-        registration_progressbar.setVisibility(View.VISIBLE);
-        firebaseAuth.createUserWithEmailAndPassword(emailAdress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                registration_progressbar.setVisibility(View.GONE);
-                if(task.isSuccessful()){
 
-                    FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+            passwordTextInput.setError(getString(R.string.error_invalid_password));
+            focusView = passwordTextInput;
+            cancel = true;
+        }
 
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(userCompleteName)
-                            .setPhotoUri(selectedImage)
-                            .build();
 
-                    user.updateProfile(profileUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Snackbar.make(register_layout, "User Created", Snackbar.LENGTH_SHORT).show();}
-                                }
-                            });
-                }else{
-                    Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(emailAdress)) {
+            emailTextInput.setError(getString(R.string.error_field_required));
+            focusView = emailTextInput;
+            cancel = true;
+        } else if (TextUtils.isEmpty(password)) {
+            passwordTextInput.setError(getString(R.string.error_field_required));
+            focusView = passwordTextInput;
+            cancel = true;
+        } else if (!isEmailValid(emailAdress)) {
+            emailTextInput.setError(getString(R.string.error_invalid_email));
+            focusView = emailTextInput;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        }else {
+
+            registration_progressbar.setVisibility(View.VISIBLE);
+            firebaseAuth.createUserWithEmailAndPassword(emailAdress, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    registration_progressbar.setVisibility(View.GONE);
+                    if(task.isSuccessful()){
+
+                        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(userCompleteName)
+                                .setPhotoUri(selectedImage)
+                                .build();
+
+                        user.updateProfile(profileUpdates)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Snackbar.make(register_layout, "User Created", Snackbar.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+
+                    }else{
+                        Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+
+
+
     }
 
     public void buttonsController(){
@@ -153,5 +181,25 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    protected boolean isPasswordValid(String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!*])(?=\\S+$).{6,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+    }
+
+    protected boolean isEmailValid(String email) {
+        if (email.contains("@") &&  email.contains(".")){
+            return true;
+        }else {
+            return false;
+        }
+
     }
 }

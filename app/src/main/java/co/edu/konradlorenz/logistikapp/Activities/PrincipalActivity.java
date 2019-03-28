@@ -60,11 +60,8 @@ public class PrincipalActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         if (user != null) {
             for (UserInfo profile : user.getProviderData()) {
-                User newUser = new User(user.getProviderId(), user.getUid(),user.getUid(), user.getDisplayName(), user.getEmail());
-                mDatabase.child("BaseDatos").child(user.getUid()).setValue(newUser);
                 nombreCuenta.setText(profile.getDisplayName());
                 correoCuenta.setText(profile.getEmail());
                 Glide.with(this).load(profile.getPhotoUrl()).into(imagenCuenta);
@@ -213,12 +210,12 @@ public class PrincipalActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+        //registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
     public void onPause() {
-        unregisterReceiver(networkStateReceiver);
+        //unregisterReceiver(networkStateReceiver);
         super.onPause();
     }
 }

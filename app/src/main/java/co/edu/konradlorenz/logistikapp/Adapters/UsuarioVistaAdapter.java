@@ -2,10 +2,16 @@ package co.edu.konradlorenz.logistikapp.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import co.edu.konradlorenz.logistikapp.Entities.User;
@@ -15,8 +21,9 @@ public class UsuarioVistaAdapter extends RecyclerView.Adapter<UsuarioVistaAdapte
 
     private ArrayList<User> items;
 
-    public UsuarioVistaAdapter(ArrayList<User> items) {
+    public UsuarioVistaAdapter(ArrayList<User> items, Context context) {
         this.items = items;
+        this.context = context;
     }
 
 
@@ -27,6 +34,8 @@ public class UsuarioVistaAdapter extends RecyclerView.Adapter<UsuarioVistaAdapte
     public void setItems(ArrayList<User> items) {
         this.items = items;
     }
+
+    private Context context;
 
 
     @NonNull
@@ -43,6 +52,7 @@ public class UsuarioVistaAdapter extends RecyclerView.Adapter<UsuarioVistaAdapte
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         holder.nombre.setText(items.get(position).getNombre());
         holder.correo.setText(items.get(position).getCorreo());
+        Glide.with(context).load(items.get(position).getFotoPerfil()).into(holder.imagenUsuario);
     }
 
 
@@ -55,9 +65,11 @@ public class UsuarioVistaAdapter extends RecyclerView.Adapter<UsuarioVistaAdapte
     public static class UsuarioViewHolder extends RecyclerView.ViewHolder {
         TextView nombre;
         TextView correo;
+        ImageView imagenUsuario;
 
         UsuarioViewHolder(View itemView) {
             super(itemView);
+            imagenUsuario = (ImageView) itemView.findViewById(R.id.imagenCard);
             nombre = (TextView) itemView.findViewById(R.id.nombreCard);
             correo = (TextView) itemView.findViewById(R.id.correoCard);
         }

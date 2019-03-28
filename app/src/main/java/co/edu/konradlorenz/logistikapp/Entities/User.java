@@ -8,17 +8,15 @@ public class User {
     private String nombre;
     private String correo;
     private String fotoPerfil;
-    private String tipoUsuario;
 
     public User() {
     }
 
-    public User(String uid, String nombre, String correo, String fotoPerfil, String tipoUsuario) {
+    public User(String uid, String nombre, String correo, String fotoPerfil) {
         this.uid = uid;
         this.nombre = nombre;
         this.correo = correo;
         this.fotoPerfil = fotoPerfil;
-        this.tipoUsuario = tipoUsuario;
     }
 
     public String getUid() {
@@ -51,13 +49,5 @@ public class User {
 
     public void setFotoPerfil(String fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
-    }
-
-    public String getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
     }
 }
