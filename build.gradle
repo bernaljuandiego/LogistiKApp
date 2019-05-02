@@ -19,9 +19,12 @@ allprojects {
     repositories {
         google()
         jcenter()
+<<<<<<< Updated upstream
         flatDir {
             dirs 'libs'
         }
+=======
+>>>>>>> Stashed changes
     }
 }
 

@@ -20,4 +20,6 @@
     <color name="rojo_carmesi">#8B0000</color>
     <color name="dorado">#CE9A00</color>
     <color name="placeholder_campos">#BCB9A7</color>
+    <color name="text">#3b3b3b</color>
+    <color name="textsub">#aaaaaa</color>
 </resources>
