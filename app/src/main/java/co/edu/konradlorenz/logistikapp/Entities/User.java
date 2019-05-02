@@ -19,6 +19,12 @@ public class User {
         this.fotoPerfil = fotoPerfil;
     }
 
+    public User(String uid, String nombre, String correo) {
+        this.uid = uid;
+        this.nombre = nombre;
+        this.correo = correo;
+    }
+
     public String getUid() {
         return uid;
     }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
-
+    >
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
@@ -10,7 +8,9 @@
             android:title="Inicio" />
     </group>
 
-    <item android:title="Usuarios">
+    <item
+        android:title="Usuarios"
+        android:visible="true">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -28,7 +28,8 @@
                 <item
                     android:id="@+id/nav_administrar_niveles"
                     android:icon="@drawable/ic_add_level"
-                    android:title="Administrar Niveles" />
+                    android:title="Administrar Niveles"
+                    android:visible="true" />
                 <item
                     android:id="@+id/nav_probar_niveles"
                     android:icon="@drawable/ic_probar"
@@ -36,7 +37,8 @@
                 <item
                     android:id="@+id/nav_registros_niveles"
                     android:icon="@drawable/ic_list"
-                    android:title="Registros de Niveles" />
+                    android:title="Registros de Niveles"
+                    android:visible="true" />
             </group>
         </menu>
     </item>

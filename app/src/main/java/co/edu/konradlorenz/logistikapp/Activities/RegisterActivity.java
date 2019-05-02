@@ -115,20 +115,18 @@ public class RegisterActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if(task.isSuccessful()){
                                             Snackbar.make(register_layout, "User Created", Snackbar.LENGTH_SHORT).show();
+                                            Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+                                            startActivity(i);
+
                                         }
                                     }
                                 });
-
-
                     }else{
                         Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
-
-
-
     }
 
     public void buttonsController(){
@@ -184,14 +182,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     protected boolean isPasswordValid(String password) {
+        if(password.length()>=6){
+            return true;
+        }
 
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!*])(?=\\S+$).{6,}$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches();
+        return false;
     }
 
     protected boolean isEmailValid(String email) {

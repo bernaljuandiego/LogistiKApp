@@ -486,7 +486,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         User newUser = new User();
         for (UserInfo profile : user.getProviderData()) {
-            newUser = new User(user.getUid(),profile.getDisplayName(),profile.getEmail(),profile.getPhotoUrl().toString());
+            newUser = new User(user.getUid(),profile.getDisplayName(),profile.getEmail());
         }
         mDatabase.child("BaseDatos").child("Users").child(user.getUid()).setValue(newUser);
         Intent i = new Intent(LoginActivity.this, PrincipalActivity.class);

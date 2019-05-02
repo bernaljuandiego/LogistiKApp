@@ -36,9 +36,12 @@ import java.io.IOException;
 
 import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.Fragments.AgregarNivelFragment;
+import co.edu.konradlorenz.logistikapp.Fragments.DownloadFragment;
 import co.edu.konradlorenz.logistikapp.Fragments.HomeFragment;
 import co.edu.konradlorenz.logistikapp.Fragments.ListarEstudiantesFragment;
+import co.edu.konradlorenz.logistikapp.Fragments.ListarNivelesFragment;
 import co.edu.konradlorenz.logistikapp.R;
+import co.edu.konradlorenz.logistikapp.UnityPlayerActivity;
 
 public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -121,6 +124,7 @@ public class PrincipalActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_salir) {
+            cerrarSesion();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -146,7 +150,13 @@ public class PrincipalActivity extends AppCompatActivity
             case R.id.nav_administrar_niveles:
                 fragment = new AgregarNivelFragment();
                 break;
+            case R.id.nav_probar_niveles:
+                fragment = new ListarNivelesFragment();
+                break;
             case R.id.nav_descargar_marcador:
+                fragment = new DownloadFragment();
+                break;
+            case R.id.nav_registros_niveles:
                 break;
             case R.id.nav_cerrarSesion:
                 cerrarSesion();

@@ -59,7 +59,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="Nombre"
-                        android:textColor="@color/tw__composer_black"
+                        android:textColor="@color/com_facebook_button_background_color_focused_disabled"
                         android:textStyle="bold"
                         app:autoSizeTextType="uniform" />
 
@@ -71,10 +71,9 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="5dp"
-                        android:textColor="@color/browser_actions_title_color"
+                        android:textColor="@color/primary_text"
                         app:autoSizeMinTextSize="1dp"
-                        app:autoSizeTextType="uniform"
-                        tools:text="@tools:sample/cities" />
+                        app:autoSizeTextType="uniform" />
 
                     <TextView
                         android:id="@+id/correoAdapter"
@@ -84,7 +83,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:text="Correo"
-                        android:textColor="@color/tw__composer_black"
+                        android:textColor="@color/com_facebook_button_background_color_focused_disabled"
                         android:textStyle="bold"
                         app:autoSizeMinTextSize="1dp"
                         app:autoSizeTextType="uniform" />
@@ -97,7 +96,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="5dp"
-                        android:textColor="@color/browser_actions_title_color"
+                        android:textColor="@color/primary_text"
                         app:autoSizeMinTextSize="1dp"
                         app:autoSizeTextType="uniform" />
 
