@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0-beta01'
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'androidx.cardview:cardview:1.0.0-beta01'
     //firebase
     implementation 'com.google.firebase:firebase-core:16.0.4'
@@ -69,19 +69,13 @@ dependencies {
     //imagenes
     implementation 'com.wang.avi:library:2.1.3'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
-<<<<<<< Updated upstream
-=======
     implementation 'com.twitter.sdk.android:twitter:3.1.1'
     implementation 'androidx.cardview:cardview:1.0.0-beta01'
     //idk
-    implementation 'com.android.support:appcompat-v7:24.1.1'
-    implementation 'com.daimajia.androidanimations:library:1.0.3@aar'
-    implementation 'com.android.support:design:24.0.0'
+    implementation 'com.daimajia.androidanimations:library:1.0.3@ar'
     implementation 'com.squareup.picasso:picasso:2.3.2'
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.daimajia.slider:library:1.1.5@aar'
-    implementation 'com.android.support:recyclerview-v7:24.0.0'
->>>>>>> Stashed changes
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="HAIR"
+                android:text="Score"
                 android:textColor="#fff"
                 android:textSize="21dp" />
 
@@ -49,7 +49,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="Have a new look"
+                android:text="12349m"
                 android:textColor="#ccffffff" />
 
 
@@ -98,7 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="HAIR CUT"
+                        android:text="Mi Registro"
                         android:textColor="@color/textsub"
                         android:textSize="@dimen/text" />
 
@@ -127,7 +127,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
                             android:gravity="right"
-                            android:text="30 mins"
+                            android:text="Tú"
                             android:textColor="@color/textsub"
                             android:textSize="@dimen/text" />
                     </LinearLayout>
@@ -173,7 +173,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="HAIR STYLING"
+                        android:text="Tabla General"
                         android:textColor="@color/textsub"
                         android:textSize="@dimen/text" />
 
@@ -202,7 +202,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1.2"
                             android:gravity="right"
-                            android:text="45 mins"
+                            android:text="Participantes"
                             android:textColor="@color/textsub"
                             android:textSize="@dimen/text" />
                     </LinearLayout>

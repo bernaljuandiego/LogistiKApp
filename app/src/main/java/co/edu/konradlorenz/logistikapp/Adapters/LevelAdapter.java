@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import co.edu.konradlorenz.logistikapp.Activities.PrincipalActivity;
+import co.edu.konradlorenz.logistikapp.Activities.ResultActivity;
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
 import co.edu.konradlorenz.logistikapp.R;
 import co.edu.konradlorenz.logistikapp.UnityPlayerActivity;
@@ -58,8 +59,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.LevelViewHol
         holder.botonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, UnityPlayerActivity.class);
-                com.unity3d.player.UnityPlayer.UnitySendMessage("Jump", "performJump", "doJump");
+                Intent i = new Intent(context, ResultActivity.class);
                 startActivity(context,i,null);
             }
         });

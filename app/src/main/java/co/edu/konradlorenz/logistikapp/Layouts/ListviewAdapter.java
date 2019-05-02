@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import co.edu.konradlorenz.logistikapp.Entities.Nivel;
 import co.edu.konradlorenz.logistikapp.R;
 
 
@@ -18,7 +19,7 @@ public class ListviewAdapter extends BaseAdapter {
 
     Context context;
 
-    ArrayList<BeanclassList> bean;
+    ArrayList<Nivel> bean;
     Typeface fonts1,fonts2;
 
     Activity main;
@@ -26,7 +27,7 @@ public class ListviewAdapter extends BaseAdapter {
 
 
 
-    public ListviewAdapter(Context context, ArrayList<BeanclassList> bean) {
+    public ListviewAdapter(Context context, ArrayList<Nivel> bean) {
 
 
         this.context = context;
@@ -85,11 +86,11 @@ public class ListviewAdapter extends BaseAdapter {
         }
 
 
-        BeanclassList bean = (BeanclassList)getItem(position);
+        Nivel bean = (Nivel) getItem(position);
 
-        viewHolder.title.setText(bean.getTitle());
-        viewHolder.price.setText(bean.getPrice());
-        viewHolder.detail.setText(bean.getDetail());
+        viewHolder.title.setText(bean.getNombre());
+        viewHolder.price.setText(Integer.toString(bean.getCajas().size()));
+        viewHolder.detail.setText(bean.getDescripcion());
 
 
 
