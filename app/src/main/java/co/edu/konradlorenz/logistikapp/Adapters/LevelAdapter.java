@@ -59,7 +59,7 @@ public class LevelAdapter extends RecyclerView.Adapter<LevelAdapter.LevelViewHol
         holder.botonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, ResultActivity.class);
+                Intent i = new Intent(context, UnityPlayerActivity.class);
                 startActivity(context,i,null);
             }
         });
