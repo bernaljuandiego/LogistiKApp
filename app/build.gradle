@@ -72,8 +72,8 @@ dependencies {
     implementation 'com.twitter.sdk.android:twitter:3.1.1'
     implementation 'androidx.cardview:cardview:1.0.0-beta01'
     //idk
-    implementation 'com.daimajia.androidanimations:library:1.0.3@ar'
     implementation 'com.squareup.picasso:picasso:2.3.2'
+    implementation 'com.daimajia.androidanimations:library:1.0.3@ar'
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.daimajia.slider:library:1.1.5@aar'
 }

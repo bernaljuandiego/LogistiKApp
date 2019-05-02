@@ -1,9 +1,6 @@
 package co.edu.konradlorenz.logistikapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import co.edu.konradlorenz.logistikapp.Adapters.LevelAdapter;
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
 import co.edu.konradlorenz.logistikapp.Layouts.ChildAnimationExample;
 import co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView;
@@ -11,11 +8,11 @@ import co.edu.konradlorenz.logistikapp.Layouts.ListviewAdapter;
 import co.edu.konradlorenz.logistikapp.Layouts.SliderLayout;
 import co.edu.konradlorenz.logistikapp.R;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +36,12 @@ public class ResultActivity extends AppCompatActivity implements BaseSliderView.
     private DatabaseReference baseDeDatos;
     private ValueEventListener lisener;
 
+    public static void Call(Activity activity)
+    {
+        // Creating an intent with the current activity and the activity we wish to start
+        Intent myIntent = new Intent(activity, ResultActivity.class);
+        activity.startActivity(myIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
