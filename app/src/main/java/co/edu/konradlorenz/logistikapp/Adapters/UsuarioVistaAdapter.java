@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class UsuarioVistaAdapter extends RecyclerView.Adapter<UsuarioVistaAdapte
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         holder.nombre.setText(items.get(position).getNombre());
         holder.correo.setText(items.get(position).getCorreo());
-        Glide.with(context).load(items.get(position).getFotoPerfil()).into(holder.imagenUsuario);
+        Glide.with(context).load(items.get(position).getFotoPerfil()).apply(RequestOptions.circleCropTransform()).into(holder.imagenUsuario);
     }
 
 

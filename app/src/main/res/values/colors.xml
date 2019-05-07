@@ -22,4 +22,9 @@
     <color name="placeholder_campos">#BCB9A7</color>
     <color name="text">#3b3b3b</color>
     <color name="textsub">#aaaaaa</color>
+    <color name="white">#FFFFFF</color>
+    <color name="title_text">#4d4d4d</color>
+    <color name="sub_txt">#95989a</color>
+    <color name="blue">#0088ff</color>
+    <color name="view_line">#d2d4d4</color>
 </resources>

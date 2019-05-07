@@ -1,7 +1,10 @@
 package co.edu.konradlorenz.logistikapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
+import co.edu.konradlorenz.logistikapp.Fragments.ListarResultadosFragment;
 import co.edu.konradlorenz.logistikapp.Layouts.ChildAnimationExample;
 import co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView;
 import co.edu.konradlorenz.logistikapp.Layouts.ListviewAdapter;
@@ -50,13 +53,10 @@ public class ResultActivity extends AppCompatActivity implements BaseSliderView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        listview = (ExpandableHeightListView) findViewById(R.id.haircut_list);
-
-        listview2 = (ExpandableHeightListView) findViewById(R.id.hairstyling_list);
-
-        baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos").child("Niveles");
-        Bean = new ArrayList<>();
-        Bean2 = new ArrayList<>();
+        Fragment fragment = new ListarResultadosFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.contenido, fragment);
+        ft.commit();
 
         mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
@@ -85,40 +85,6 @@ public class ResultActivity extends AppCompatActivity implements BaseSliderView.
         mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mDemoSlider.setCustomAnimation(new ChildAnimationExample());
         mDemoSlider.setDuration(4000);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        baseDeDatos.removeEventListener(lisener);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        lisener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                Bean.clear();
-
-                for (DataSnapshot asistenteSnapshot: snapshot.getChildren()) {
-                    Nivel nivel = asistenteSnapshot.getValue(Nivel.class);
-                    Bean.add(nivel);
-                    Bean2.add(nivel);
-                }
-
-                baseAdapter = new ListviewAdapter(ResultActivity.this, Bean) {};
-                baseAdapter2 = new ListviewAdapter(ResultActivity.this, Bean2) {};
-                listview.setAdapter(baseAdapter);
-                listview2.setAdapter(baseAdapter2);
-            }
-            @Override
-            public void onCancelled(DatabaseError firebaseError) {
-                Log.e("The read failed: " ,firebaseError.getMessage());
-            }
-        };
-        baseDeDatos.addValueEventListener(lisener);
     }
 
     @Override

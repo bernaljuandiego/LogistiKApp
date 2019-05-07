@@ -27,6 +27,7 @@
     <uses-feature
         android:name="android.hardware.touchscreen.multitouch.distinct"
         android:required="false" />
+
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"
@@ -41,10 +42,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".Activities.MainActivity"></activity>
 
-
-        <meta-data android:name="com.google.ar.core.min_apk_version" android:value="24" />
-        <meta-data android:name="com.google.ar.core" android:value="optional" />
+        <meta-data
+            android:name="com.google.ar.core.min_apk_version"
+            android:value="24" />
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="optional" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -63,14 +68,10 @@
         <activity android:name=".Activities.LoginActivity" />
         <activity android:name="com.twitter.sdk.android.core.identity.OAuthActivity" />
         <activity
-            android:name=".Activities.PrincipalActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar.Principal" />
-        <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-        <activity android:name=".Activities.ResultActivity"></activity>
+        <activity android:name=".Activities.ResultActivity" />
         <activity android:name=".Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,7 +80,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="co.edu.konradlorenz.logistikapp.UnityPlayerActivity"
+            android:name=".UnityPlayerActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density"
             android:hardwareAccelerated="false"
             android:label="@string/app_name"
@@ -102,4 +103,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

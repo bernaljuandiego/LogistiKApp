@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contenido"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.HomeFragment">
+    android:background="#051926">
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:id="@+id/natural"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:background="@drawable/sea"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/imageLinear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imagenCuenta"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="80dp"
+                android:src="@drawable/com_facebook_profile_picture_blank_portrait"
+                app:civ_border_color="#cccccc"
+                app:civ_border_width="2dp" />
+
+
+            <TextView
+                android:id="@+id/correoCuenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:letterSpacing="0.025"
+                android:text="Monday"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/LogistiK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:letterSpacing="0.025"
+                android:text="LogistiK"
+                android:textColor="@color/textsub"
+                android:textSize="14dp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/nombreCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ejemplo_uso" />
-</FrameLayout>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:capitalize="characters"
+        android:gravity="center"
+        android:letterSpacing="0.025"
+        android:text="nombre usuario"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:autoSizeTextType="uniform" />
+
+
+</RelativeLayout>

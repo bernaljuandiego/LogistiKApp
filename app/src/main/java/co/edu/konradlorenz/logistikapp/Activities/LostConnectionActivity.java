@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import co.edu.konradlorenz.logistikapp.Activities.LoginActivity;
-import co.edu.konradlorenz.logistikapp.Activities.PrincipalActivity;
 import co.edu.konradlorenz.logistikapp.R;
 
 public class LostConnectionActivity extends AppCompatActivity {
@@ -29,7 +27,7 @@ public class LostConnectionActivity extends AppCompatActivity {
     private void verificar(NetworkInfo ni) {
         if (ni != null) {
             if (ni.getState() == NetworkInfo.State.CONNECTED) {
-                Intent i = new Intent(getApplicationContext(), PrincipalActivity.class);
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
             }

@@ -35,6 +35,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:layout_weight="8"
                     android:adjustViewBounds="true"
                     android:cropToPadding="true"
@@ -52,18 +53,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/nombreAdapter"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="22"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="Nombre"
-                        android:textColor="@color/com_facebook_button_background_color_focused_disabled"
-                        android:textStyle="bold"
-                        app:autoSizeTextType="uniform" />
-
-                    <TextView
                         android:id="@+id/nombreCard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -72,21 +61,10 @@
                         android:paddingRight="5dp"
                         android:paddingBottom="5dp"
                         android:textColor="@color/primary_text"
-                        app:autoSizeMinTextSize="1dp"
-                        app:autoSizeTextType="uniform" />
-
-                    <TextView
-                        android:id="@+id/correoAdapter"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="22"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="5dp"
-                        android:text="Correo"
-                        android:textColor="@color/com_facebook_button_background_color_focused_disabled"
                         android:textStyle="bold"
                         app:autoSizeMinTextSize="1dp"
-                        app:autoSizeTextType="uniform" />
+                        app:autoSizeTextType="uniform"
+                        tools:text="@tools:sample/cities" />
 
                     <TextView
                         android:id="@+id/correoCard"
@@ -96,7 +74,7 @@
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingBottom="5dp"
-                        android:textColor="@color/primary_text"
+                        android:textColor="@color/textsub"
                         app:autoSizeMinTextSize="1dp"
                         app:autoSizeTextType="uniform" />
 
