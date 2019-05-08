@@ -30,7 +30,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
-       View view =inflater.inflate(R.layout.list_layout,null);
+       View view =inflater.inflate(R.layout.adapter_niveles,null);
         return new ProductViewHolder(view);
     }
 
