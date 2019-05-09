@@ -5,6 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.cardview.widget.CardView;
 import android.text.Editable;
@@ -25,20 +30,30 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
+import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.R;
 
 
-public class AgregarNivelFragment extends Fragment {
+public class AgregarNivelFragment extends AppCompatActivity {
 
+
+    private FirebaseAuth mAuth;
 
     private DatabaseReference baseDeDatos;
     private ArrayList<CheckBox> todosCheckBox;
@@ -52,157 +67,168 @@ public class AgregarNivelFragment extends Fragment {
     private TextView titulo;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Agregar Nivel");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_agregar_nivel);
+        setTitle("Agregar Nivel");
         baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos");
         obtenerComponentes();
+
+
+        mAuth = FirebaseAuth.getInstance();
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        TabLayout tab = (TabLayout) findViewById(R.id.tablayout);
+        tab.setVisibility(View.GONE);
     }
 
     private void obtenerComponentes() {
-        titulo = (TextView) getView().findViewById(R.id.titulo);
-        nombreNivel = (EditText) getView().findViewById(R.id.nombreNivel);
-        descNivel = (EditText) getView().findViewById(R.id.descripcionNivel);
-        tablaCajas = (HorizontalScrollView) getView().findViewById(R.id.tablaCajas);
-        registrar = (Button) getView().findViewById(R.id.botonRegistro);
-        mostrar = (Button) getView().findViewById(R.id.mostrar);
-        eliminar = (Button) getView().findViewById(R.id.eliminar);
+        titulo = (TextView) findViewById(R.id.titulo);
+        nombreNivel = (EditText) findViewById(R.id.nombreNivel);
+        descNivel = (EditText) findViewById(R.id.descripcionNivel);
+        tablaCajas = (HorizontalScrollView) findViewById(R.id.tablaCajas);
+        registrar = (Button) findViewById(R.id.botonRegistro);
+        mostrar = (Button) findViewById(R.id.mostrar);
+        eliminar = (Button) findViewById(R.id.eliminar);
         todosCheckBox = new ArrayList<>();
         llenarArregloCheckBox();
     }
 
     private void llenarArregloCheckBox() {
-        CheckBox caja1 = (CheckBox) getView().findViewById(R.id.checkBox1);
-        CheckBox caja2 = (CheckBox) getView().findViewById(R.id.checkBox2);
-        CheckBox caja3 = (CheckBox) getView().findViewById(R.id.checkBox3);
-        CheckBox caja4 = (CheckBox) getView().findViewById(R.id.checkBox4);
-        CheckBox caja5 = (CheckBox) getView().findViewById(R.id.checkBox5);
-        CheckBox caja6 = (CheckBox) getView().findViewById(R.id.checkBox6);
-        CheckBox caja7 = (CheckBox) getView().findViewById(R.id.checkBox7);
-        CheckBox caja8 = (CheckBox) getView().findViewById(R.id.checkBox8);
-        CheckBox caja9 = (CheckBox) getView().findViewById(R.id.checkBox9);
-        CheckBox caja10 = (CheckBox) getView().findViewById(R.id.checkBox10);
-        CheckBox caja11 = (CheckBox) getView().findViewById(R.id.checkBox11);
-        CheckBox caja12 = (CheckBox) getView().findViewById(R.id.checkBox12);
-        CheckBox caja13 = (CheckBox) getView().findViewById(R.id.checkBox13);
-        CheckBox caja14 = (CheckBox) getView().findViewById(R.id.checkBox14);
-        CheckBox caja15 = (CheckBox) getView().findViewById(R.id.checkBox15);
-        CheckBox caja16 = (CheckBox) getView().findViewById(R.id.checkBox16);
-        CheckBox caja17 = (CheckBox) getView().findViewById(R.id.checkBox17);
-        CheckBox caja18 = (CheckBox) getView().findViewById(R.id.checkBox18);
-        CheckBox caja19 = (CheckBox) getView().findViewById(R.id.checkBox19);
-        CheckBox caja20 = (CheckBox) getView().findViewById(R.id.checkBox20);
-        CheckBox caja21 = (CheckBox) getView().findViewById(R.id.checkBox21);
-        CheckBox caja22 = (CheckBox) getView().findViewById(R.id.checkBox22);
-        CheckBox caja23 = (CheckBox) getView().findViewById(R.id.checkBox23);
-        CheckBox caja24 = (CheckBox) getView().findViewById(R.id.checkBox24);
-        CheckBox caja25 = (CheckBox) getView().findViewById(R.id.checkBox25);
-        CheckBox caja26 = (CheckBox) getView().findViewById(R.id.checkBox26);
-        CheckBox caja27 = (CheckBox) getView().findViewById(R.id.checkBox27);
-        CheckBox caja28 = (CheckBox) getView().findViewById(R.id.checkBox28);
-        CheckBox caja29 = (CheckBox) getView().findViewById(R.id.checkBox29);
-        CheckBox caja30 = (CheckBox) getView().findViewById(R.id.checkBox30);
-        CheckBox caja31 = (CheckBox) getView().findViewById(R.id.checkBox31);
-        CheckBox caja32 = (CheckBox) getView().findViewById(R.id.checkBox32);
-        CheckBox caja33 = (CheckBox) getView().findViewById(R.id.checkBox33);
-        CheckBox caja34 = (CheckBox) getView().findViewById(R.id.checkBox34);
-        CheckBox caja35 = (CheckBox) getView().findViewById(R.id.checkBox35);
-        CheckBox caja36 = (CheckBox) getView().findViewById(R.id.checkBox36);
-        CheckBox caja37 = (CheckBox) getView().findViewById(R.id.checkBox37);
-        CheckBox caja38 = (CheckBox) getView().findViewById(R.id.checkBox38);
-        CheckBox caja39 = (CheckBox) getView().findViewById(R.id.checkBox39);
-        CheckBox caja40 = (CheckBox) getView().findViewById(R.id.checkBox40);
-        CheckBox caja41 = (CheckBox) getView().findViewById(R.id.checkBox41);
-        CheckBox caja42 = (CheckBox) getView().findViewById(R.id.checkBox42);
-        CheckBox caja43 = (CheckBox) getView().findViewById(R.id.checkBox43);
-        CheckBox caja44 = (CheckBox) getView().findViewById(R.id.checkBox44);
-        CheckBox caja45 = (CheckBox) getView().findViewById(R.id.checkBox45);
-        CheckBox caja46 = (CheckBox) getView().findViewById(R.id.checkBox46);
-        CheckBox caja47 = (CheckBox) getView().findViewById(R.id.checkBox47);
-        CheckBox caja48 = (CheckBox) getView().findViewById(R.id.checkBox48);
-        CheckBox caja49 = (CheckBox) getView().findViewById(R.id.checkBox49);
-        CheckBox caja50 = (CheckBox) getView().findViewById(R.id.checkBox50);
-        CheckBox caja51 = (CheckBox) getView().findViewById(R.id.checkBox51);
-        CheckBox caja52 = (CheckBox) getView().findViewById(R.id.checkBox52);
-        CheckBox caja53 = (CheckBox) getView().findViewById(R.id.checkBox53);
-        CheckBox caja54 = (CheckBox) getView().findViewById(R.id.checkBox54);
-        CheckBox caja55 = (CheckBox) getView().findViewById(R.id.checkBox55);
-        CheckBox caja56 = (CheckBox) getView().findViewById(R.id.checkBox56);
-        CheckBox caja57 = (CheckBox) getView().findViewById(R.id.checkBox57);
-        CheckBox caja58 = (CheckBox) getView().findViewById(R.id.checkBox58);
-        CheckBox caja59 = (CheckBox) getView().findViewById(R.id.checkBox59);
-        CheckBox caja60 = (CheckBox) getView().findViewById(R.id.checkBox60);
-        CheckBox caja61 = (CheckBox) getView().findViewById(R.id.checkBox61);
-        CheckBox caja62 = (CheckBox) getView().findViewById(R.id.checkBox62);
-        CheckBox caja63 = (CheckBox) getView().findViewById(R.id.checkBox63);
-        CheckBox caja64 = (CheckBox) getView().findViewById(R.id.checkBox64);
-        CheckBox caja65 = (CheckBox) getView().findViewById(R.id.checkBox65);
-        CheckBox caja66 = (CheckBox) getView().findViewById(R.id.checkBox66);
-        CheckBox caja67 = (CheckBox) getView().findViewById(R.id.checkBox67);
-        CheckBox caja68 = (CheckBox) getView().findViewById(R.id.checkBox68);
-        CheckBox caja69 = (CheckBox) getView().findViewById(R.id.checkBox69);
-        CheckBox caja70 = (CheckBox) getView().findViewById(R.id.checkBox70);
-        CheckBox caja71 = (CheckBox) getView().findViewById(R.id.checkBox71);
-        CheckBox caja72 = (CheckBox) getView().findViewById(R.id.checkBox72);
-        CheckBox caja73 = (CheckBox) getView().findViewById(R.id.checkBox73);
-        CheckBox caja74 = (CheckBox) getView().findViewById(R.id.checkBox74);
-        CheckBox caja75 = (CheckBox) getView().findViewById(R.id.checkBox75);
-        CheckBox caja76 = (CheckBox) getView().findViewById(R.id.checkBox76);
-        CheckBox caja77 = (CheckBox) getView().findViewById(R.id.checkBox77);
-        CheckBox caja78 = (CheckBox) getView().findViewById(R.id.checkBox78);
-        CheckBox caja79 = (CheckBox) getView().findViewById(R.id.checkBox79);
-        CheckBox caja80 = (CheckBox) getView().findViewById(R.id.checkBox80);
-        CheckBox caja81 = (CheckBox) getView().findViewById(R.id.checkBox81);
-        CheckBox caja82 = (CheckBox) getView().findViewById(R.id.checkBox82);
-        CheckBox caja83 = (CheckBox) getView().findViewById(R.id.checkBox83);
-        CheckBox caja84 = (CheckBox) getView().findViewById(R.id.checkBox84);
-        CheckBox caja85 = (CheckBox) getView().findViewById(R.id.checkBox85);
-        CheckBox caja86 = (CheckBox) getView().findViewById(R.id.checkBox86);
-        CheckBox caja87 = (CheckBox) getView().findViewById(R.id.checkBox87);
-        CheckBox caja88 = (CheckBox) getView().findViewById(R.id.checkBox88);
-        CheckBox caja89 = (CheckBox) getView().findViewById(R.id.checkBox89);
-        CheckBox caja90 = (CheckBox) getView().findViewById(R.id.checkBox90);
-        CheckBox caja91 = (CheckBox) getView().findViewById(R.id.checkBox91);
-        CheckBox caja92 = (CheckBox) getView().findViewById(R.id.checkBox92);
-        CheckBox caja93 = (CheckBox) getView().findViewById(R.id.checkBox93);
-        CheckBox caja94 = (CheckBox) getView().findViewById(R.id.checkBox94);
-        CheckBox caja95 = (CheckBox) getView().findViewById(R.id.checkBox95);
-        CheckBox caja96 = (CheckBox) getView().findViewById(R.id.checkBox96);
-        CheckBox caja97 = (CheckBox) getView().findViewById(R.id.checkBox97);
-        CheckBox caja98 = (CheckBox) getView().findViewById(R.id.checkBox98);
-        CheckBox caja99 = (CheckBox) getView().findViewById(R.id.checkBox99);
-        CheckBox caja100 = (CheckBox) getView().findViewById(R.id.checkBox100);
-        CheckBox caja101 = (CheckBox) getView().findViewById(R.id.checkBox101);
-        CheckBox caja102 = (CheckBox) getView().findViewById(R.id.checkBox102);
-        CheckBox caja103 = (CheckBox) getView().findViewById(R.id.checkBox103);
-        CheckBox caja104 = (CheckBox) getView().findViewById(R.id.checkBox104);
-        CheckBox caja105 = (CheckBox) getView().findViewById(R.id.checkBox105);
-        CheckBox caja106 = (CheckBox) getView().findViewById(R.id.checkBox106);
-        CheckBox caja107 = (CheckBox) getView().findViewById(R.id.checkBox107);
-        CheckBox caja108 = (CheckBox) getView().findViewById(R.id.checkBox108);
-        CheckBox caja109 = (CheckBox) getView().findViewById(R.id.checkBox109);
-        CheckBox caja110 = (CheckBox) getView().findViewById(R.id.checkBox110);
-        CheckBox caja111 = (CheckBox) getView().findViewById(R.id.checkBox111);
-        CheckBox caja112 = (CheckBox) getView().findViewById(R.id.checkBox112);
-        CheckBox caja113 = (CheckBox) getView().findViewById(R.id.checkBox113);
-        CheckBox caja114 = (CheckBox) getView().findViewById(R.id.checkBox114);
-        CheckBox caja115 = (CheckBox) getView().findViewById(R.id.checkBox115);
-        CheckBox caja116 = (CheckBox) getView().findViewById(R.id.checkBox116);
-        CheckBox caja117 = (CheckBox) getView().findViewById(R.id.checkBox117);
-        CheckBox caja118 = (CheckBox) getView().findViewById(R.id.checkBox118);
-        CheckBox caja119 = (CheckBox) getView().findViewById(R.id.checkBox119);
-        CheckBox caja120 = (CheckBox) getView().findViewById(R.id.checkBox120);
-        CheckBox caja121 = (CheckBox) getView().findViewById(R.id.checkBox121);
-        CheckBox caja122 = (CheckBox) getView().findViewById(R.id.checkBox122);
-        CheckBox caja123 = (CheckBox) getView().findViewById(R.id.checkBox123);
-        CheckBox caja124 = (CheckBox) getView().findViewById(R.id.checkBox124);
-        CheckBox caja125 = (CheckBox) getView().findViewById(R.id.checkBox125);
-        CheckBox caja126 = (CheckBox) getView().findViewById(R.id.checkBox126);
-        CheckBox caja127 = (CheckBox) getView().findViewById(R.id.checkBox127);
-        CheckBox caja128 = (CheckBox) getView().findViewById(R.id.checkBox128);
-        CheckBox caja129 = (CheckBox) getView().findViewById(R.id.checkBox129);
-        CheckBox caja130 = (CheckBox) getView().findViewById(R.id.checkBox130);
-        CheckBox caja131 = (CheckBox) getView().findViewById(R.id.checkBox131);
+        CheckBox caja1 = (CheckBox) findViewById(R.id.checkBox1);
+        CheckBox caja2 = (CheckBox) findViewById(R.id.checkBox2);
+        CheckBox caja3 = (CheckBox) findViewById(R.id.checkBox3);
+        CheckBox caja4 = (CheckBox) findViewById(R.id.checkBox4);
+        CheckBox caja5 = (CheckBox) findViewById(R.id.checkBox5);
+        CheckBox caja6 = (CheckBox) findViewById(R.id.checkBox6);
+        CheckBox caja7 = (CheckBox) findViewById(R.id.checkBox7);
+        CheckBox caja8 = (CheckBox) findViewById(R.id.checkBox8);
+        CheckBox caja9 = (CheckBox) findViewById(R.id.checkBox9);
+        CheckBox caja10 = (CheckBox) findViewById(R.id.checkBox10);
+        CheckBox caja11 = (CheckBox) findViewById(R.id.checkBox11);
+        CheckBox caja12 = (CheckBox) findViewById(R.id.checkBox12);
+        CheckBox caja13 = (CheckBox) findViewById(R.id.checkBox13);
+        CheckBox caja14 = (CheckBox) findViewById(R.id.checkBox14);
+        CheckBox caja15 = (CheckBox) findViewById(R.id.checkBox15);
+        CheckBox caja16 = (CheckBox) findViewById(R.id.checkBox16);
+        CheckBox caja17 = (CheckBox) findViewById(R.id.checkBox17);
+        CheckBox caja18 = (CheckBox) findViewById(R.id.checkBox18);
+        CheckBox caja19 = (CheckBox) findViewById(R.id.checkBox19);
+        CheckBox caja20 = (CheckBox) findViewById(R.id.checkBox20);
+        CheckBox caja21 = (CheckBox) findViewById(R.id.checkBox21);
+        CheckBox caja22 = (CheckBox) findViewById(R.id.checkBox22);
+        CheckBox caja23 = (CheckBox) findViewById(R.id.checkBox23);
+        CheckBox caja24 = (CheckBox) findViewById(R.id.checkBox24);
+        CheckBox caja25 = (CheckBox) findViewById(R.id.checkBox25);
+        CheckBox caja26 = (CheckBox) findViewById(R.id.checkBox26);
+        CheckBox caja27 = (CheckBox) findViewById(R.id.checkBox27);
+        CheckBox caja28 = (CheckBox) findViewById(R.id.checkBox28);
+        CheckBox caja29 = (CheckBox) findViewById(R.id.checkBox29);
+        CheckBox caja30 = (CheckBox) findViewById(R.id.checkBox30);
+        CheckBox caja31 = (CheckBox) findViewById(R.id.checkBox31);
+        CheckBox caja32 = (CheckBox) findViewById(R.id.checkBox32);
+        CheckBox caja33 = (CheckBox) findViewById(R.id.checkBox33);
+        CheckBox caja34 = (CheckBox) findViewById(R.id.checkBox34);
+        CheckBox caja35 = (CheckBox) findViewById(R.id.checkBox35);
+        CheckBox caja36 = (CheckBox) findViewById(R.id.checkBox36);
+        CheckBox caja37 = (CheckBox) findViewById(R.id.checkBox37);
+        CheckBox caja38 = (CheckBox) findViewById(R.id.checkBox38);
+        CheckBox caja39 = (CheckBox) findViewById(R.id.checkBox39);
+        CheckBox caja40 = (CheckBox) findViewById(R.id.checkBox40);
+        CheckBox caja41 = (CheckBox) findViewById(R.id.checkBox41);
+        CheckBox caja42 = (CheckBox) findViewById(R.id.checkBox42);
+        CheckBox caja43 = (CheckBox) findViewById(R.id.checkBox43);
+        CheckBox caja44 = (CheckBox) findViewById(R.id.checkBox44);
+        CheckBox caja45 = (CheckBox) findViewById(R.id.checkBox45);
+        CheckBox caja46 = (CheckBox) findViewById(R.id.checkBox46);
+        CheckBox caja47 = (CheckBox) findViewById(R.id.checkBox47);
+        CheckBox caja48 = (CheckBox) findViewById(R.id.checkBox48);
+        CheckBox caja49 = (CheckBox) findViewById(R.id.checkBox49);
+        CheckBox caja50 = (CheckBox) findViewById(R.id.checkBox50);
+        CheckBox caja51 = (CheckBox) findViewById(R.id.checkBox51);
+        CheckBox caja52 = (CheckBox) findViewById(R.id.checkBox52);
+        CheckBox caja53 = (CheckBox) findViewById(R.id.checkBox53);
+        CheckBox caja54 = (CheckBox) findViewById(R.id.checkBox54);
+        CheckBox caja55 = (CheckBox) findViewById(R.id.checkBox55);
+        CheckBox caja56 = (CheckBox) findViewById(R.id.checkBox56);
+        CheckBox caja57 = (CheckBox) findViewById(R.id.checkBox57);
+        CheckBox caja58 = (CheckBox) findViewById(R.id.checkBox58);
+        CheckBox caja59 = (CheckBox) findViewById(R.id.checkBox59);
+        CheckBox caja60 = (CheckBox) findViewById(R.id.checkBox60);
+        CheckBox caja61 = (CheckBox) findViewById(R.id.checkBox61);
+        CheckBox caja62 = (CheckBox) findViewById(R.id.checkBox62);
+        CheckBox caja63 = (CheckBox) findViewById(R.id.checkBox63);
+        CheckBox caja64 = (CheckBox) findViewById(R.id.checkBox64);
+        CheckBox caja65 = (CheckBox) findViewById(R.id.checkBox65);
+        CheckBox caja66 = (CheckBox) findViewById(R.id.checkBox66);
+        CheckBox caja67 = (CheckBox) findViewById(R.id.checkBox67);
+        CheckBox caja68 = (CheckBox) findViewById(R.id.checkBox68);
+        CheckBox caja69 = (CheckBox) findViewById(R.id.checkBox69);
+        CheckBox caja70 = (CheckBox) findViewById(R.id.checkBox70);
+        CheckBox caja71 = (CheckBox) findViewById(R.id.checkBox71);
+        CheckBox caja72 = (CheckBox) findViewById(R.id.checkBox72);
+        CheckBox caja73 = (CheckBox) findViewById(R.id.checkBox73);
+        CheckBox caja74 = (CheckBox) findViewById(R.id.checkBox74);
+        CheckBox caja75 = (CheckBox) findViewById(R.id.checkBox75);
+        CheckBox caja76 = (CheckBox) findViewById(R.id.checkBox76);
+        CheckBox caja77 = (CheckBox) findViewById(R.id.checkBox77);
+        CheckBox caja78 = (CheckBox) findViewById(R.id.checkBox78);
+        CheckBox caja79 = (CheckBox) findViewById(R.id.checkBox79);
+        CheckBox caja80 = (CheckBox) findViewById(R.id.checkBox80);
+        CheckBox caja81 = (CheckBox) findViewById(R.id.checkBox81);
+        CheckBox caja82 = (CheckBox) findViewById(R.id.checkBox82);
+        CheckBox caja83 = (CheckBox) findViewById(R.id.checkBox83);
+        CheckBox caja84 = (CheckBox) findViewById(R.id.checkBox84);
+        CheckBox caja85 = (CheckBox) findViewById(R.id.checkBox85);
+        CheckBox caja86 = (CheckBox) findViewById(R.id.checkBox86);
+        CheckBox caja87 = (CheckBox) findViewById(R.id.checkBox87);
+        CheckBox caja88 = (CheckBox) findViewById(R.id.checkBox88);
+        CheckBox caja89 = (CheckBox) findViewById(R.id.checkBox89);
+        CheckBox caja90 = (CheckBox) findViewById(R.id.checkBox90);
+        CheckBox caja91 = (CheckBox) findViewById(R.id.checkBox91);
+        CheckBox caja92 = (CheckBox) findViewById(R.id.checkBox92);
+        CheckBox caja93 = (CheckBox) findViewById(R.id.checkBox93);
+        CheckBox caja94 = (CheckBox) findViewById(R.id.checkBox94);
+        CheckBox caja95 = (CheckBox) findViewById(R.id.checkBox95);
+        CheckBox caja96 = (CheckBox) findViewById(R.id.checkBox96);
+        CheckBox caja97 = (CheckBox) findViewById(R.id.checkBox97);
+        CheckBox caja98 = (CheckBox) findViewById(R.id.checkBox98);
+        CheckBox caja99 = (CheckBox) findViewById(R.id.checkBox99);
+        CheckBox caja100 = (CheckBox) findViewById(R.id.checkBox100);
+        CheckBox caja101 = (CheckBox) findViewById(R.id.checkBox101);
+        CheckBox caja102 = (CheckBox) findViewById(R.id.checkBox102);
+        CheckBox caja103 = (CheckBox) findViewById(R.id.checkBox103);
+        CheckBox caja104 = (CheckBox) findViewById(R.id.checkBox104);
+        CheckBox caja105 = (CheckBox) findViewById(R.id.checkBox105);
+        CheckBox caja106 = (CheckBox) findViewById(R.id.checkBox106);
+        CheckBox caja107 = (CheckBox) findViewById(R.id.checkBox107);
+        CheckBox caja108 = (CheckBox) findViewById(R.id.checkBox108);
+        CheckBox caja109 = (CheckBox) findViewById(R.id.checkBox109);
+        CheckBox caja110 = (CheckBox) findViewById(R.id.checkBox110);
+        CheckBox caja111 = (CheckBox) findViewById(R.id.checkBox111);
+        CheckBox caja112 = (CheckBox) findViewById(R.id.checkBox112);
+        CheckBox caja113 = (CheckBox) findViewById(R.id.checkBox113);
+        CheckBox caja114 = (CheckBox) findViewById(R.id.checkBox114);
+        CheckBox caja115 = (CheckBox) findViewById(R.id.checkBox115);
+        CheckBox caja116 = (CheckBox) findViewById(R.id.checkBox116);
+        CheckBox caja117 = (CheckBox) findViewById(R.id.checkBox117);
+        CheckBox caja118 = (CheckBox) findViewById(R.id.checkBox118);
+        CheckBox caja119 = (CheckBox) findViewById(R.id.checkBox119);
+        CheckBox caja120 = (CheckBox) findViewById(R.id.checkBox120);
+        CheckBox caja121 = (CheckBox) findViewById(R.id.checkBox121);
+        CheckBox caja122 = (CheckBox) findViewById(R.id.checkBox122);
+        CheckBox caja123 = (CheckBox) findViewById(R.id.checkBox123);
+        CheckBox caja124 = (CheckBox) findViewById(R.id.checkBox124);
+        CheckBox caja125 = (CheckBox) findViewById(R.id.checkBox125);
+        CheckBox caja126 = (CheckBox) findViewById(R.id.checkBox126);
+        CheckBox caja127 = (CheckBox) findViewById(R.id.checkBox127);
+        CheckBox caja128 = (CheckBox) findViewById(R.id.checkBox128);
+        CheckBox caja129 = (CheckBox) findViewById(R.id.checkBox129);
+        CheckBox caja130 = (CheckBox) findViewById(R.id.checkBox130);
+        CheckBox caja131 = (CheckBox) findViewById(R.id.checkBox131);
         todosCheckBox.add(caja1);
         todosCheckBox.add(caja2);
         todosCheckBox.add(caja3);
@@ -339,20 +365,20 @@ public class AgregarNivelFragment extends Fragment {
     private void agregarLiseners() {
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 baseDeDatos.child("Niveles").child(nombreNivel.getText().toString()).removeValue().addOnCompleteListener(
                         new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 nombreNivel.setText("");
-                                Snackbar.make(getView(), "Nivel Eliminado satisfactoriamente!", Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(v, "Nivel Eliminado satisfactoriamente!", Snackbar.LENGTH_LONG).show();
                             }
 
                         }
                 ).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Snackbar.make(getView(), "No se ha podido eliminar el nivel!", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(v, "No se ha podido eliminar el nivel!", Snackbar.LENGTH_LONG).show();
                     }
                 });
             }
@@ -361,28 +387,29 @@ public class AgregarNivelFragment extends Fragment {
 
         registrar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 String nombreNivelString = nombreNivel.getText().toString();
                 String descNivelString = descNivel.getText().toString();
                 ArrayList<Integer> cajasSeleccionadas = obtenerCajasSeleccionadas();
                 if (!TextUtils.isEmpty(nombreNivelString) && !TextUtils.isEmpty(descNivelString)) {
                     if (cajasSeleccionadas.isEmpty()) {
-                        Snackbar.make(getView(), "Seleccione por lo menos una caja!", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(v, "Seleccione por lo menos una caja!", Snackbar.LENGTH_LONG).show();
                     } else {
-                        Nivel nivelNuevo = new Nivel(nombreNivelString, cajasSeleccionadas, descNivelString);
+                        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                        Nivel nivelNuevo = new Nivel(nombreNivelString, cajasSeleccionadas, descNivelString, mAuth.getCurrentUser().getDisplayName(),date);
                         baseDeDatos.child("Niveles").child(nombreNivelString).setValue(nivelNuevo).addOnCompleteListener(
                                 new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         nombreNivel.setText("");
-                                        Snackbar.make(getView(), "Nivel Agregado satisfactoriamente!", Snackbar.LENGTH_LONG).show();
+                                        Snackbar.make(v, "Nivel Agregado satisfactoriamente!", Snackbar.LENGTH_LONG).show();
                                     }
 
                                 }
                         ).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Snackbar.make(getView(), "No se ha podido completar la acción!", Snackbar.LENGTH_LONG).show();
+                                Snackbar.make(v, "No se ha podido completar la acción!", Snackbar.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -490,16 +517,10 @@ public class AgregarNivelFragment extends Fragment {
         agregarLiseners();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_agregar_nivel, container, false);
-    }
-
     private void StartAnimations() {
-        Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.translate);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.translate);
         anim.reset();
-        CardView l = (CardView) getView().findViewById(R.id.card);
+        CoordinatorLayout l = (CoordinatorLayout) findViewById(R.id.card);
         l.clearAnimation();
         l.startAnimation(anim);
         Thread splashTread = new Thread() {

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contenido"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgmain">
+
+    <include
+        layout="@layout/principal_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <co.edu.konradlorenz.logistikapp.Layouts.SliderLayout
         android:id="@+id/slider"
@@ -14,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="310dp"
         android:background="#fff"
-        custom:pager_animation_span="1100">
+        custom:pager_animation_span="1100"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <requestFocus />
     </co.edu.konradlorenz.logistikapp.Layouts.SliderLayout>
@@ -22,11 +28,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="310dp"
-        android:background="@drawable/uperslider">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar"></include>
+        android:background="@drawable/uperslider"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,4 +60,4 @@
 
     </FrameLayout>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

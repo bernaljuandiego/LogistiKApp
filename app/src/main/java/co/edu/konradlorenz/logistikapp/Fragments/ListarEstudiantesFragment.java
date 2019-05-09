@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import co.edu.konradlorenz.logistikapp.Adapters.UsuarioVistaAdapter;
 import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.R;
+import pl.droidsonroids.gif.GifImageView;
 
 
 public class ListarEstudiantesFragment extends Fragment {
@@ -34,11 +35,12 @@ public class ListarEstudiantesFragment extends Fragment {
     private DatabaseReference baseDeDatos;
     private ArrayList<User> estudiantes;
     private ValueEventListener lisener;
+    private GifImageView gif;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_listar_estudiantes, container, false);
+        return inflater.inflate(R.layout.fragment_lista_estudiantes, container, false);
     }
 
     @Override
@@ -46,6 +48,7 @@ public class ListarEstudiantesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos").child("Users");
         estudiantes = new ArrayList<>();
+        gif = (GifImageView) getView().findViewById(R.id.gif);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class ListarEstudiantesFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 estudiantes.clear();
-
+                gif.setVisibility(View.GONE);
                 for (DataSnapshot asistenteSnapshot: snapshot.getChildren()) {
                     User estudiante = asistenteSnapshot.getValue(User.class);
                     estudiantes.add(estudiante);

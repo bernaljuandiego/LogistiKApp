@@ -1,6 +1,8 @@
 package co.edu.konradlorenz.logistikapp.Activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
@@ -15,9 +17,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.facebook.login.LoginManager;
+import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +38,8 @@ import java.util.HashMap;
 
 public class ResultActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener {
     SliderLayout mDemoSlider;
+
+    private FirebaseAuth mAuth;
 
 
     private ExpandableHeightListView listview;
@@ -52,6 +62,21 @@ public class ResultActivity extends AppCompatActivity implements BaseSliderView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+
+        mAuth = FirebaseAuth.getInstance();
+
+        //toolbar
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+
+        TabLayout tab = (TabLayout) findViewById(R.id.tablayout);
+        tab.setVisibility(View.GONE);
+
+        setTitle("Evaluacion");
+
 
         Fragment fragment = new ListarResultadosFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -90,6 +115,32 @@ public class ResultActivity extends AppCompatActivity implements BaseSliderView.
     @Override
     public void onSliderClick(BaseSliderView slider) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sign_out:
+                cerrarSesion();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    private void cerrarSesion() {
+        mAuth.signOut();
+        LoginManager.getInstance().logOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
 

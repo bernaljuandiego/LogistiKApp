@@ -1,164 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <!--********SLIDER**********-->
+
+        <LinearLayout
+            android:id="@+id/haircut"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="261dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_list_rect"
+            android:elevation="4dp"
+            android:orientation="vertical">
 
-
-            <!--********SLIDER**********-->
+            <!--*****HAIR CUT********-->
 
 
             <LinearLayout
-                android:id="@+id/haircut"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="261dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/bg_list_rect"
-                android:elevation="4dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedrect"
+                android:orientation="horizontal"
+                android:padding="16dp"
 
-                <!--*****HAIR CUT********-->
+                >
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mi Registro"
+                    android:textColor="@color/textsub"
+                    android:textSize="@dimen/text" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/roundedrect"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                    >
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_clock"
+                            android:tint="@color/primary_text" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Mi Registro"
+                        android:layout_weight="1.2"
+                        android:gravity="right"
+                        android:text="Tú"
                         android:textColor="@color/textsub"
                         android:textSize="@dimen/text" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:layout_width="17dp"
-                                android:layout_height="17dp"
-                                android:layout_gravity="right"
-                                android:src="@drawable/ic_clock"
-                                android:tint="@color/primary_text" />
-                        </FrameLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.2"
-                            android:gravity="right"
-                            android:text="Tú"
-                            android:textColor="@color/textsub"
-                            android:textSize="@dimen/text" />
-                    </LinearLayout>
                 </LinearLayout>
-
-                <co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView
-                    android:id="@+id/haircut_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    >
-
-                </co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView>
-
-
             </LinearLayout>
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/loading" />
+
+            <co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView
+                android:id="@+id/haircut_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                >
+
+            </co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/haircut"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_list_rect"
+            android:elevation="4dp"
+            android:orientation="vertical">
+
+            <!--*****HAIR CUT********-->
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/haircut"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_list_rect"
-                android:elevation="4dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedrect"
+                android:orientation="horizontal"
+                android:padding="16dp"
 
-                <!--*****HAIR CUT********-->
+                >
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Tabla General"
+                    android:textColor="@color/textsub"
+                    android:textSize="@dimen/text" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/roundedrect"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                    >
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="17dp"
+                            android:layout_height="17dp"
+                            android:layout_gravity="right"
+                            android:src="@drawable/ic_clock"
+                            android:tint="@color/title_text" />
+                    </FrameLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Tabla General"
+                        android:layout_weight="1.2"
+                        android:gravity="right"
+                        android:text="Participantes"
                         android:textColor="@color/textsub"
                         android:textSize="@dimen/text" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_weight="1">
-
-                            <ImageView
-                                android:layout_width="17dp"
-                                android:layout_height="17dp"
-                                android:layout_gravity="right"
-                                android:src="@drawable/ic_clock"
-                                android:tint="@color/title_text" />
-                        </FrameLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.2"
-                            android:gravity="right"
-                            android:text="Participantes"
-                            android:textColor="@color/textsub"
-                            android:textSize="@dimen/text" />
-                    </LinearLayout>
                 </LinearLayout>
-
-                <co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView
-                    android:id="@+id/hairstyling_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
             </LinearLayout>
 
+            <co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView
+                android:id="@+id/hairstyling_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        </RelativeLayout>
-</ScrollView>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</androidx.core.widget.NestedScrollView>

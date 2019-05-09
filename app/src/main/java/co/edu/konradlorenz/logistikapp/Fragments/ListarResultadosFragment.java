@@ -4,15 +4,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,14 +18,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import co.edu.konradlorenz.logistikapp.Activities.ResultActivity;
-import co.edu.konradlorenz.logistikapp.Adapters.LevelAdapter;
-import co.edu.konradlorenz.logistikapp.Adapters.UsuarioVistaAdapter;
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
-import co.edu.konradlorenz.logistikapp.Entities.User;
 import co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView;
 import co.edu.konradlorenz.logistikapp.Layouts.ListviewAdapter;
 import co.edu.konradlorenz.logistikapp.R;
+import pl.droidsonroids.gif.GifImageView;
 
 
 public class ListarResultadosFragment extends Fragment {
@@ -43,6 +36,7 @@ public class ListarResultadosFragment extends Fragment {
     private ArrayList<Nivel> Bean2;
     private ListviewAdapter baseAdapter;
     private ListviewAdapter baseAdapter2;
+    private GifImageView gif;
 
     @Nullable
     @Override
@@ -56,6 +50,7 @@ public class ListarResultadosFragment extends Fragment {
         baseDeDatos = FirebaseDatabase.getInstance().getReference("BaseDatos").child("Niveles");
         listview = (ExpandableHeightListView) getView().findViewById(R.id.haircut_list);
         listview2 = (ExpandableHeightListView) getView().findViewById(R.id.hairstyling_list);
+        gif = (GifImageView) getView().findViewById(R.id.gif);
         Bean = new ArrayList<>();
         Bean2 = new ArrayList<>();
     }
@@ -68,6 +63,7 @@ public class ListarResultadosFragment extends Fragment {
         lisener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                gif.setVisibility(View.GONE);
                 Bean.clear();
                 Bean2.clear();
                 for (DataSnapshot asistenteSnapshot: snapshot.getChildren()) {

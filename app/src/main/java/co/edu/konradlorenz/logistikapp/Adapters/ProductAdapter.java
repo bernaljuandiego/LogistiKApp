@@ -44,10 +44,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Nivel product =productList.get(position);
 
         //binding the data with the viewholder views
+        holder.numberLevels.setText("#"+(position+1));
         holder.textViewTitle.setText(product.getNombre());
         holder.textViewShortDesc.setText(product.getDescripcion());
-        holder.textName.setText(String.valueOf(Integer.toString(product.getCajas().size())));
-        holder.textHour.setText("11/04/2019");
+        holder.textName.setText(product.getCreador());
+        holder.textHour.setText(product.getFecha());
         holder.botonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +67,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     class ProductViewHolder extends RecyclerView.ViewHolder{
 
         ImageView imageView,botonStart;
-        TextView textViewTitle, textViewShortDesc, textName, textHour;
+        TextView textViewTitle, textViewShortDesc, textName, textHour, numberLevels;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
@@ -77,6 +78,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             textHour = itemView.findViewById(R.id.textHour);
             imageView = itemView.findViewById(R.id.imageView);
             botonStart = itemView.findViewById(R.id.button_start);
+            numberLevels = itemView.findViewById(R.id.number_level);
+
         }
 
     }

@@ -25,7 +25,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-
             case 0:
                 HomeFragment tab1 = new HomeFragment();
                 return tab1;

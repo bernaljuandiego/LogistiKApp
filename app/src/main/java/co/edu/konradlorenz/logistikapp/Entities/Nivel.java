@@ -6,14 +6,18 @@ public class Nivel {
     private String nombre;
     private ArrayList<Integer> cajas;
     private String descripcion;
+    private String creador;
+    private String fecha;
 
-    public Nivel() {
-    }
-
-    public Nivel(String nombre, ArrayList<Integer> cajas, String descripcion) {
+    public Nivel(String nombre, ArrayList<Integer> cajas, String descripcion, String creador, String fecha) {
         this.nombre = nombre;
         this.cajas = cajas;
         this.descripcion = descripcion;
+        this.creador = creador;
+        this.fecha = fecha;
+    }
+
+    public Nivel() {
     }
 
     public String getNombre() {
@@ -38,5 +42,21 @@ public class Nivel {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getCreador() {
+        return creador;
+    }
+
+    public void setCreador(String creador) {
+        this.creador = creador;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }
