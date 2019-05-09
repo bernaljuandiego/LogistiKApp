@@ -1,6 +1,7 @@
 package co.edu.konradlorenz.logistikapp.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,11 @@ import android.widget.TextView;
 import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
+import co.edu.konradlorenz.logistikapp.Activities.ResultActivity;
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
 import co.edu.konradlorenz.logistikapp.R;
+
+import static androidx.core.content.ContextCompat.startActivity;
 
 /**
  * Created by KURPC on 24-01-2018.
@@ -42,8 +46,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         //binding the data with the viewholder views
         holder.textViewTitle.setText(product.getNombre());
         holder.textViewShortDesc.setText(product.getDescripcion());
-        holder.textName.setText(String.valueOf(product.getCajas()));
+        holder.textName.setText(String.valueOf(Integer.toString(product.getCajas().size())));
         holder.textHour.setText("11/04/2019");
+        holder.botonStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(mCtx, ResultActivity.class);
+                startActivity(mCtx,i,null);
+            }
+        });
 
     }
 
@@ -54,7 +65,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     class ProductViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView imageView;
+        ImageView imageView,botonStart;
         TextView textViewTitle, textViewShortDesc, textName, textHour;
 
         public ProductViewHolder(View itemView) {
@@ -65,6 +76,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             textName = itemView.findViewById(R.id.textName);
             textHour = itemView.findViewById(R.id.textHour);
             imageView = itemView.findViewById(R.id.imageView);
+            botonStart = itemView.findViewById(R.id.button_start);
         }
 
     }
