@@ -57,10 +57,10 @@
                         android:layout_weight="1">
 
                         <ImageView
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:layout_gravity="right"
-                            android:src="@drawable/ic_clock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:src="@drawable/ic_action_name"
                             android:tint="@color/primary_text" />
                     </FrameLayout>
 
@@ -128,7 +128,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_weight="1"
                     android:orientation="horizontal">
@@ -140,11 +140,11 @@
                         android:layout_weight="1">
 
                         <ImageView
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:layout_gravity="right"
-                            android:src="@drawable/ic_clock"
-                            android:tint="@color/title_text" />
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:src="@drawable/ic_action_name"
+                            android:tint="@color/primary_text" />
                     </FrameLayout>
 
                     <TextView
@@ -156,6 +156,7 @@
                         android:textColor="@color/textsub"
                         android:textSize="@dimen/text" />
                 </LinearLayout>
+
             </LinearLayout>
 
             <co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView

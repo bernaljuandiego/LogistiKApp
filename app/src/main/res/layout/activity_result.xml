@@ -9,7 +9,7 @@
     android:background="@drawable/bgmain">
 
     <include
-        layout="@layout/principal_toolbar"
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

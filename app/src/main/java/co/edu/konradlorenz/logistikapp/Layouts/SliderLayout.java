@@ -41,7 +41,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.viewpager.widget.PagerAdapter;
-import co.edu.konradlorenz.logistikapp.Activities.ResultActivity;
+import co.edu.konradlorenz.logistikapp.Activities.ResultadoActivity;
 
 /**
  * SliderLayout is compound layout. This is combined with {@link PagerIndicator}
@@ -393,7 +393,7 @@ public class SliderLayout extends RelativeLayout {
     }
 
 
-    public void addOnPageChangeListener(ResultActivity mainActivity) {
+    public void addOnPageChangeListener(ResultadoActivity mainActivity) {
 
     }
 

@@ -22,8 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import co.edu.konradlorenz.logistikapp.Adapters.UsuarioVistaAdapter;
-import co.edu.konradlorenz.logistikapp.Entities.User;
+import co.edu.konradlorenz.logistikapp.Adapters.UsuarioAdapter;
+import co.edu.konradlorenz.logistikapp.Entities.Usuario;
 import co.edu.konradlorenz.logistikapp.R;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -33,7 +33,7 @@ public class ListarEstudiantesFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DatabaseReference baseDeDatos;
-    private ArrayList<User> estudiantes;
+    private ArrayList<Usuario> estudiantes;
     private ValueEventListener lisener;
     private GifImageView gif;
 
@@ -61,7 +61,7 @@ public class ListarEstudiantesFragment extends Fragment {
                 estudiantes.clear();
                 gif.setVisibility(View.GONE);
                 for (DataSnapshot asistenteSnapshot: snapshot.getChildren()) {
-                    User estudiante = asistenteSnapshot.getValue(User.class);
+                    Usuario estudiante = asistenteSnapshot.getValue(Usuario.class);
                     estudiantes.add(estudiante);
                 }
 
@@ -73,7 +73,7 @@ public class ListarEstudiantesFragment extends Fragment {
                 items.setLayoutManager(mLayoutManager);
 
                 // specify an adapter (see also next example)
-                mAdapter = new UsuarioVistaAdapter(estudiantes,getContext());
+                mAdapter = new UsuarioAdapter(estudiantes,getContext());
                 items.setAdapter(mAdapter);
             }
             @Override

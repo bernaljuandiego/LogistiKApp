@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     android:elevation="7dp"
     app:cardCornerRadius="20dp"
-    tools:context=".Fragments.AgregarNivelFragment">
+    tools:context=".Activities.AgregarNivelActivity">
 
     <include
-        layout="@layout/principal_toolbar"
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></include>
 

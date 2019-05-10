@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradiente_navigation_drawer"
     android:orientation="vertical"
-    tools:context=".Activities.LostConnectionActivity">
+    tools:context=".Activities.ConexionPerdidaActivity">
 
 
     <androidx.cardview.widget.CardView

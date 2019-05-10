@@ -62,7 +62,7 @@ public class ListviewAdapter extends BaseAdapter {
 
         if (convertView == null){
             LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_row,null);
+            convertView = layoutInflater.inflate(R.layout.adapter_registro,null);
 
             viewHolder = new ViewHolder();
 
