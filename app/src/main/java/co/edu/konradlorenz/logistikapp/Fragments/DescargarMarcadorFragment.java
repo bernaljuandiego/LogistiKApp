@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -28,6 +27,7 @@ import java.io.File;
 public class DescargarMarcadorFragment extends Fragment {
 
     private String DIR_NAME = "LogistiK";
+    private final int WRITE_EXTERNAL =560;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -43,60 +43,64 @@ public class DescargarMarcadorFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (ContextCompat.checkSelfPermission(getActivity(),Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            Log.d("entro","entro");
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_PHONE_STATE}, permissionCheck);
-        } else {
-            Log.d("entro","no entro");
-        }
-
-        Button boton = getActivity().findViewById(R.id.button3);
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String filename = "Marcador.jpg";
-                String downloadUrlOfImage = "http://www.konradlorenz.edu.co/images/banco/konrad-logo-color.jpg";
-                File direct =
-                        new File(Environment
-                                .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                                .getAbsolutePath() + "/" + DIR_NAME + "/");
-
-
-                if (!direct.exists()) {
-                    direct.mkdir();
-                }
-
-                DownloadManager dm = (DownloadManager) getContext().getSystemService(Context.DOWNLOAD_SERVICE);
-                Uri downloadUri = Uri.parse(downloadUrlOfImage);
-                DownloadManager.Request request = new DownloadManager.Request(downloadUri);
-                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                        .setAllowedOverRoaming(false)
-                        .setTitle(filename)
-                        .setMimeType("image/jpeg")
-                        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                        .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES,
-                                File.separator + DIR_NAME + File.separator + filename);
-
-                dm.enqueue(request);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL);
+                Log.d("permiso","hola");
+            } else {
+                Log.d("permiso","adios");
             }
-        });
-
+            Log.d("permiso","quiuvo");
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case Manifest:
-                if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    //TODO
-                }
-                break;
+            case WRITE_EXTERNAL: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Button boton = getActivity().findViewById(R.id.button3);
+                    boton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String filename = "Marcador.jpg";
+                            String downloadUrlOfImage = "http://www.konradlorenz.edu.co/images/banco/konrad-logo-color.jpg";
+                            File direct =
+                                    new File(Environment
+                                            .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                                            .getAbsolutePath() + "/" + DIR_NAME + "/");
 
-            default:
-                break;
+
+                            if (!direct.exists()) {
+                                direct.mkdir();
+                            }
+
+                            DownloadManager dm = (DownloadManager) getContext().getSystemService(Context.DOWNLOAD_SERVICE);
+                            Uri downloadUri = Uri.parse(downloadUrlOfImage);
+                            DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
+                                    .setAllowedOverRoaming(false)
+                                    .setTitle(filename)
+                                    .setMimeType("image/jpeg")
+                                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES,
+                                            File.separator + DIR_NAME + File.separator + filename);
+
+                            dm.enqueue(request);
+                        }
+                    });
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
 
