@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.twitter.sdk.android:tweet-ui:3.1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tweet-ui-3.1.1.aar/2e24b98c13842e4a2a3e2914a8db506d/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tweet-ui-3.1.1.aar/2e24b98c13842e4a2a3e2914a8db506d/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/61b3b2a40ce4e30368d5f4a33334ea15/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/61b3b2a40ce4e30368d5f4a33334ea15/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
