@@ -27,6 +27,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import co.edu.konradlorenz.logistikapp.Activities.AgregarNivelActivity;
 import co.edu.konradlorenz.logistikapp.Adapters.NivelAdapter;
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
+import co.edu.konradlorenz.logistikapp.Entities.Registro;
+import co.edu.konradlorenz.logistikapp.Entities.Usuario;
 import co.edu.konradlorenz.logistikapp.R;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -61,6 +63,16 @@ public class ListarNivelesFragment extends Fragment {
     public void onResume() {
         super.onResume();
         StartAnimations();
+
+        //prueba
+        ArrayList<Integer> cajas = new ArrayList<>();
+        cajas.add(1);
+        cajas.add(2);
+        Nivel nivel = new Nivel("prueba",cajas,"nivel de prueba", "juan Diego","11-01-2019");
+        ArrayList<Registro> registros = new ArrayList<>();
+        registros.add(new Registro("100m", new Usuario("1", "juan", "correo", "ffd")));
+        nivel.setRegistros(registros);
+        baseDeDatos.child("1").setValue(nivel);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

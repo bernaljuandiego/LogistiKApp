@@ -47,12 +47,12 @@
                 android:textSize="21dp" />
 
             <TextView
+                android:id="@+id/texto_distancia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:text="12349m"
                 android:textColor="#ccffffff" />
 
 

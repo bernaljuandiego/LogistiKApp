@@ -1,11 +1,14 @@
 package co.edu.konradlorenz.logistikapp.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import co.edu.konradlorenz.logistikapp.Entities.Nivel;
+import co.edu.konradlorenz.logistikapp.Entities.Registro;
+import co.edu.konradlorenz.logistikapp.Entities.Usuario;
 import co.edu.konradlorenz.logistikapp.Fragments.ListarResultadosFragment;
 import co.edu.konradlorenz.logistikapp.Layouts.ChildAnimationExample;
 import co.edu.konradlorenz.logistikapp.Layouts.ExpandableHeightListView;
@@ -19,13 +22,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -46,9 +55,14 @@ public class ResultadoActivity extends AppCompatActivity implements BaseSliderVi
     private ListviewAdapter baseAdapter2;
     private DatabaseReference baseDeDatos;
     private ValueEventListener lisener;
+    private static String distancia;
+    private Usuario usuario;
+    private String id = "";
+    private DatabaseReference mDatabase;
 
-    public static void Call(Activity activity)
+    public static void Call(Activity activity, String distancias)
     {
+        distancia = distancias;
         Intent myIntent = new Intent(activity, ResultadoActivity.class);
         activity.startActivity(myIntent);
     }
@@ -59,6 +73,7 @@ public class ResultadoActivity extends AppCompatActivity implements BaseSliderVi
         setContentView(R.layout.activity_result);
 
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
         //toolbar
@@ -71,6 +86,12 @@ public class ResultadoActivity extends AppCompatActivity implements BaseSliderVi
         tab.setVisibility(View.GONE);
 
         setTitle("Evaluacion");
+
+        TextView texto = (TextView) findViewById(R.id.texto_distancia);
+        texto.setText(distancia);
+        id = mDatabase.push().getKey();
+        //usuario = new Usuario(mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getPhotoUrl().toString(), mAuth.getCurrentUser().getUid());
+        mDatabase.child("BaseDatos").child("Niveles").child("evaluación").child("registros").child(id).setValue(new Registro(distancia,new Usuario()));
 
 
         Fragment fragment = new ListarResultadosFragment();

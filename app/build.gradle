@@ -15,7 +15,7 @@ android {
         applicationId "co.edu.konradlorenz.logistikapp"
         minSdkVersion 19
         targetSdkVersion 28
-        multiDexEnabled trueb
+        multiDexEnabled true
         ndk {
             abiFilters 'armeabi-v7a', 'x86'
         }
