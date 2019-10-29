@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:custom="http://schemas.android.com/apk/res-auto"
+android:id="@+id/contenido"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/bgmain">
+
+<co.edu.konradlorenz.logistikapp.Layouts.SliderLayout
+    android:id="@+id/slider"
+    style="@style/AlertDialog.AppCompat.Light"
+    android:layout_width="match_parent"
+    android:layout_height="310dp"
+    android:background="#fff"
+    custom:pager_animation_span="1100"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <requestFocus />
+</co.edu.konradlorenz.logistikapp.Layouts.SliderLayout>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="310dp"
+    android:background="@drawable/uperslider"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Warehouse Routing"
+            android:textColor="#fff"
+            android:textSize="36sp"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/texto_distancia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Fundación Universitaria Konrad Lorenz"
+            android:textColor="#ccffffff"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <!--********SLIDER**********-->
+
+            <LinearLayout
+                android:id="@+id/haircut"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="350dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_list_rect"
+                android:elevation="4dp"
+                android:orientation="vertical">
+
+                <!--*****HAIR CUT********-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/roundedrect"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+
+                    ><ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:src="@drawable/ic_developer"
+                    android:tint="@color/primary_text" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Desarrollador"
+                        android:textColor="@color/textsub"
+                        android:textSize="@dimen/text" />
+
+                </LinearLayout>
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/gif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/loading" />
+
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,6 +4,8 @@ package co.edu.konradlorenz.logistikapp.Adapters;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import co.edu.konradlorenz.logistikapp.Fragments.AcercaDeFragment;
 import co.edu.konradlorenz.logistikapp.Fragments.DescargarMarcadorFragment;
 import co.edu.konradlorenz.logistikapp.Fragments.InicioFragment;
 import co.edu.konradlorenz.logistikapp.Fragments.ListarEstudiantesFragment;
@@ -37,6 +39,9 @@ public class TabsAdapter extends FragmentPagerAdapter {
             case 3:
                 DescargarMarcadorFragment tab4 = new DescargarMarcadorFragment();
                 return tab4;
+            case 4:
+                AcercaDeFragment tab5 = new AcercaDeFragment();
+                return tab5;
             default:
                 return null;
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LogistiK App</string>
+    <string name="app_name">Warehouse Routing App</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="action_settings">Configuraciones</string>
@@ -29,7 +29,7 @@
     <string name="sign_in">Iniciar sesión</string>
     <string name="username">Correo</string>
     <string name="password">Contraseña</string>
-    <string name="nav_header_desc">LogistiK</string>
+    <string name="nav_header_desc">Warehouse Routing</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="cantAccess">Necesitas ayuda?</string>

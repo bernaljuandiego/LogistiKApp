@@ -91,7 +91,7 @@ public class ResultadoActivity extends AppCompatActivity implements BaseSliderVi
         texto.setText(distancia);
         id = mDatabase.push().getKey();
         //usuario = new Usuario(mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getEmail(), mAuth.getCurrentUser().getPhotoUrl().toString(), mAuth.getCurrentUser().getUid());
-        mDatabase.child("BaseDatos").child("Niveles").child("evaluación").child("registros").child(id).setValue(new Registro(distancia,new Usuario()));
+        //mDatabase.child("BaseDatos").child("Niveles").child("evaluación").child("registros").child(id).setValue(new Registro(distancia,new Usuario()));
 
 
         Fragment fragment = new ListarResultadosFragment();

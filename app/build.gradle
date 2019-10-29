@@ -9,18 +9,18 @@ android {
             storePassword 'Konrad'
         }
     }
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "co.edu.konradlorenz.logistikapp"
         minSdkVersion 19
-        targetSdkVersion 28
+        targetSdkVersion 29
         multiDexEnabled true
         ndk {
-            abiFilters 'armeabi-v7a', 'x86'
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         }
-        versionCode 6
-        versionName '1.4'
+        versionCode 9
+        versionName '1.5'
     }
     lintOptions {
         abortOnError false

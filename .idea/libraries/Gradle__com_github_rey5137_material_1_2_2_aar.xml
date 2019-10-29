@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.rey5137:material:1.2.2@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a62d124ff8950855bfe1c372b0d9e544/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a62d124ff8950855bfe1c372b0d9e544/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9f2faee014fa497d7d5eb9b57f474899/jetified-material-1.2.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9f2faee014fa497d7d5eb9b57f474899/jetified-material-1.2.2/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.rey5137/material/1.2.2/1dc68c3d19c3e9182e8d4f111c74ae5740f14ea5/material-1.2.2-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.rey5137/material/1.2.2/7e9a0fd9b85fc6e3f0e8a3809f1908187439cd2a/material-1.2.2-sources.jar!/" />
     </SOURCES>

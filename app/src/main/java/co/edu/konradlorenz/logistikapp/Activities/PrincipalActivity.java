@@ -24,7 +24,7 @@ public class PrincipalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("LogistiK");
+        setTitle("Warehouse Routing");
         //toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
@@ -39,6 +39,7 @@ public class PrincipalActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("Estudiantes"));
         tabLayout.addTab(tabLayout.newTab().setText("Niveles"));
         tabLayout.addTab(tabLayout.newTab().setText("Marcador"));
+        tabLayout.addTab(tabLayout.newTab().setText("Acerca De"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
